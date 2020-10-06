@@ -1,9 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const cors = require('cors');
-
-const config = require('./config/config');
+import express from 'express';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import cors from 'cors';
+import config from './config/config';
 
 const app = express();
 app.use(morgan('combined'));
