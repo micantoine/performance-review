@@ -8,6 +8,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
     },
     "typeRoots": [
@@ -19,7 +20,7 @@
   },
   "include": [
     "src/**/*",
-    "types"
+    "types",
   ],
   "exclude": [
     "node_modules",
