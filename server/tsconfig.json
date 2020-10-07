@@ -10,11 +10,19 @@
     "baseUrl": ".",
     "paths": {
     },
+    "typeRoots": [
+      "types"
+    ],
     "types": [
-      "node",
+      "node"
     ],
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "types"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
