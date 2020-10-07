@@ -6,7 +6,7 @@ import cors from 'cors';
 import config from './config/config';
 import routes from './routes';
 
-const app: express.Application = express();
+const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
