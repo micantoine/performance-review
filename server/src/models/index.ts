@@ -1,26 +1,18 @@
 import { Sequelize } from 'sequelize';
-import config from '../config/config';
-import user from './User';
+import sequelize from './sequelize';
+import UserModel from './User';
 
-const sequelize = new Sequelize(
-  config.db.database,
-  config.db.user,
-  config.db.password,
-  config.db.options
-);
-
-const db: any = {};
-
-const userModel = user(sequelize);
-db[userModel.name] = userModel;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const db: any = {
+  sequelize,
+  Sequelize,
+  User: UserModel
+};
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 
 export default db;

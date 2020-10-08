@@ -1,16 +1,16 @@
 import bcrypt from 'bcrypt';
-import {
-  Sequelize, Model, ModelCtor, DataTypes
-} from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
+import sequelize from './sequelize';
 
-interface UserInstance extends Model {
-  name: string;
-  email: string;
-  password: string;
-  isAdmin: boolean;
+class UserModel extends Model {
+  public id!: number;
+  public email!: string;
+  public password!: string;
+  public name: string;
+  public isAdmin: boolean;
 }
 
-function hashPassword(user: UserInstance) {
+function hashPassword(user: UserModel) {
   const SALT_FACTOR = 8;
 
   if (!user.changed('password')) {
@@ -25,29 +25,41 @@ function hashPassword(user: UserInstance) {
     });
 }
 
-export default (sequelize: Sequelize): ModelCtor<UserInstance> => {
-  const UserModel = sequelize.define<UserInstance>('User', {
-    name: DataTypes.STRING,
+UserModel.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     email: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
+      allowNull: false
     },
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     isAdmin: DataTypes.BOOLEAN
-  }, {
+  },
+  {
+    tableName: 'users',
     name: {
       singular: 'user',
       plural: 'users'
     },
+    sequelize,
     hooks: {
       beforeCreate: hashPassword,
       beforeUpdate: hashPassword
       // beforeSave: hashPassword
     }
-  });
+  }
+);
 
-  // eslint-disable-next-line max-len
-  UserModel.prototype.comparePassword = (password: string, dbPassword: string) => bcrypt.compare(password, dbPassword);
-
-  return UserModel;
-};
+export default UserModel;
