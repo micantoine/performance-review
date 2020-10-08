@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const sequelize_1 = require("sequelize");
+const sequelize_2 = __importDefault(require("./sequelize"));
+class UserModel extends sequelize_1.Model {
+}
 function hashPassword(user) {
     const SALT_FACTOR = 8;
     if (!user.changed('password')) {
@@ -17,28 +20,38 @@ function hashPassword(user) {
         user.setDataValue('password', hash);
     });
 }
-exports.default = (sequelize) => {
-    const UserModel = sequelize.define('User', {
-        name: sequelize_1.DataTypes.STRING,
-        email: {
-            type: sequelize_1.DataTypes.STRING,
-            unique: true
-        },
-        password: sequelize_1.DataTypes.STRING,
-        isAdmin: sequelize_1.DataTypes.BOOLEAN
-    }, {
-        name: {
-            singular: 'user',
-            plural: 'users'
-        },
-        hooks: {
-            beforeCreate: hashPassword,
-            beforeUpdate: hashPassword
-            // beforeSave: hashPassword
-        }
-    });
-    // eslint-disable-next-line max-len
-    UserModel.prototype.comparePassword = (password, dbPassword) => bcrypt_1.default.compare(password, dbPassword);
-    return UserModel;
-};
+UserModel.init({
+    id: {
+        type: sequelize_1.DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    email: {
+        type: sequelize_1.DataTypes.STRING,
+        unique: true,
+        allowNull: false
+    },
+    password: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    name: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
+    isAdmin: sequelize_1.DataTypes.BOOLEAN
+}, {
+    tableName: 'users',
+    name: {
+        singular: 'user',
+        plural: 'users'
+    },
+    sequelize: sequelize_2.default,
+    hooks: {
+        beforeCreate: hashPassword,
+        beforeUpdate: hashPassword
+        // beforeSave: hashPassword
+    }
+});
+exports.default = UserModel;
 //# sourceMappingURL=User.js.map

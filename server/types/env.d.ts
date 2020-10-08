@@ -7,5 +7,6 @@ declare namespace NodeJS {
     DB_PASS?: string;
     DIALECT?: 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql';
     NODE_ENV: 'development' | 'production';
+    JWT_SECRET?: string;
   }
 }

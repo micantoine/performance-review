@@ -18,8 +18,14 @@
     "isAdmin": false
   },
   {
-    "name": "Jay Stag",
-    "email": "jaystag@mail.com",
+    "name": "Noah Stag",
+    "email": "noahstag@mail.com",
+    "password": "demo",
+    "isAdmin": false
+  },
+  {
+    "name": "Chloe Dear",
+    "email": "chloedear@mail.com",
     "password": "demo",
     "isAdmin": false
   }

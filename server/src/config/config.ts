@@ -9,5 +9,8 @@ export default {
       host: process.env.HOST || '127.0.0.1',
       storage: './dbreviews.sqlite3'
     }
+  },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 };
