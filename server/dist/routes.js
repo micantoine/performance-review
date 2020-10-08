@@ -8,6 +8,9 @@ const routes = (app) => {
     app.get('/', (req, res) => {
         res.send('Hello world!!');
     });
+    app.post('/register', [
+        AuthenticationController_1.default.register.bind(AuthenticationController_1.default)
+    ]);
     app.post('/login', [
         AuthenticationController_1.default.login.bind(AuthenticationController_1.default)
     ]);

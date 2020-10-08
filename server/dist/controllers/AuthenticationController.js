@@ -17,10 +17,25 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const models_1 = __importDefault(require("../models"));
 const config_1 = __importDefault(require("../config/config"));
 class AuthenticationController {
-    jwtSignUser() {
-        const ONE_WEEK = 60 * 60 * 24 * 7;
-        return jsonwebtoken_1.default.sign(this.user.toJSON(), config_1.default.authentication.jwtSecret, {
-            expiresIn: ONE_WEEK
+    register(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.user = yield models_1.default.User.create(req.body);
+                return res.send({
+                    user: {
+                        email: this.user.email,
+                        name: this.user.name,
+                        isAdmin: this.user.isAdmin
+                    },
+                    token: this.jwtSignUser()
+                });
+            }
+            catch (err) {
+                return res.status(400).send({
+                    error: 'validation',
+                    message: ['This email account already exists.']
+                });
+            }
         });
     }
     // eslint-disable-next-line consistent-return
@@ -59,6 +74,16 @@ class AuthenticationController {
                     message: ['An error has occured trying to log in']
                 });
             }
+        });
+    }
+    /**
+     * Create Token
+     * @return {string}
+     */
+    jwtSignUser() {
+        const ONE_WEEK = 60 * 60 * 24 * 7;
+        return jsonwebtoken_1.default.sign(this.user.toJSON(), config_1.default.authentication.jwtSecret, {
+            expiresIn: ONE_WEEK
         });
     }
 }

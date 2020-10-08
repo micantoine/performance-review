@@ -6,6 +6,10 @@ const routes = (app: express.Application): void => {
     res.send('Hello world!!');
   });
 
+  app.post('/register', [
+    AuthenticationController.register.bind(AuthenticationController)
+  ]);
+
   app.post('/login', [
     AuthenticationController.login.bind(AuthenticationController)
   ]);

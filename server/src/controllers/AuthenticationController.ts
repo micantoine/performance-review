@@ -6,17 +6,30 @@ import User from '../models/User';
 import config from '../config/config';
 
 class AuthenticationController {
-  user: User;
+  public user: User;
 
-  public jwtSignUser(): string {
-    const ONE_WEEK = 60 * 60 * 24 * 7;
-    return jwt.sign(this.user.toJSON(), config.authentication.jwtSecret, {
-      expiresIn: ONE_WEEK
-    });
+  public async register(req: Request, res: Response): Promise<Response> {
+    try {
+      this.user = await db.User.create(req.body);
+
+      return res.send({
+        user: {
+          email: this.user.email,
+          name: this.user.name,
+          isAdmin: this.user.isAdmin
+        },
+        token: this.jwtSignUser()
+      });
+    } catch (err) {
+      return res.status(400).send({
+        error: 'validation',
+        message: ['This email account already exists.']
+      });
+    }
   }
 
   // eslint-disable-next-line consistent-return
-  async login(req: Request, res: Response): Promise<Response> {
+  public async login(req: Request, res: Response): Promise<Response> {
     try {
       const { email, password } = req.body;
 
@@ -54,6 +67,17 @@ class AuthenticationController {
         message: ['An error has occured trying to log in']
       });
     }
+  }
+
+  /**
+   * Create Token
+   * @return {string}
+   */
+  public jwtSignUser(): string {
+    const ONE_WEEK = 60 * 60 * 24 * 7;
+    return jwt.sign(this.user.toJSON(), config.authentication.jwtSecret, {
+      expiresIn: ONE_WEEK
+    });
   }
 }
 
