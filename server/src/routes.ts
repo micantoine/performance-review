@@ -1,5 +1,6 @@
 import express from 'express';
 import AuthenticationController from './controllers/AuthenticationController';
+import AuthenticationControllerPolicy from './policies/AuthenticationControllerPolicy';
 
 const routes = (app: express.Application): void => {
   app.get('/', (req, res) => {
@@ -7,6 +8,7 @@ const routes = (app: express.Application): void => {
   });
 
   app.post('/register', [
+    AuthenticationControllerPolicy.register.bind(AuthenticationControllerPolicy),
     AuthenticationController.register.bind(AuthenticationController)
   ]);
 

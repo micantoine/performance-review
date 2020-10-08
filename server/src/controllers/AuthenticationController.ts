@@ -8,11 +8,16 @@ import config from '../config/config';
 class AuthenticationController {
   public user: User;
 
-  public async register(req: Request, res: Response): Promise<Response> {
+  /**
+   * Register Controller
+   * @param req {Request}
+   * @param res  {Response}
+   */
+  public async register(req: Request, res: Response): Promise<void> {
     try {
       this.user = await db.User.create(req.body);
 
-      return res.send({
+      res.send({
         user: {
           email: this.user.email,
           name: this.user.name,
@@ -21,15 +26,19 @@ class AuthenticationController {
         token: this.jwtSignUser()
       });
     } catch (err) {
-      return res.status(400).send({
+      res.status(400).send({
         error: 'validation',
         message: ['This email account already exists.']
       });
     }
   }
 
-  // eslint-disable-next-line consistent-return
-  public async login(req: Request, res: Response): Promise<Response> {
+  /**
+   * Login Controller
+   * @param req {Request} the Request
+   * @param res {Response} the Response
+   */
+  public async login(req: Request, res: Response): Promise<void> {
     try {
       const { email, password } = req.body;
 
@@ -40,7 +49,7 @@ class AuthenticationController {
       });
 
       if (!this.user) {
-        return res.status(403).send({
+        res.status(403).send({
           error: 'authentication',
           message: ['The login information was incorrect', 'user does not exist']
         });
@@ -49,7 +58,7 @@ class AuthenticationController {
       const isPasswordValid = await bcrypt.compare(password, this.user.password);
 
       if (!isPasswordValid) {
-        return res.status(403).send({
+        res.status(403).send({
           error: 'authentication',
           message: ['The login information was incorrect', 'password invalid']
         });

@@ -17,11 +17,16 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const models_1 = __importDefault(require("../models"));
 const config_1 = __importDefault(require("../config/config"));
 class AuthenticationController {
+    /**
+     * Register Controller
+     * @param req {Request}
+     * @param res  {Response}
+     */
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 this.user = yield models_1.default.User.create(req.body);
-                return res.send({
+                res.send({
                     user: {
                         email: this.user.email,
                         name: this.user.name,
@@ -31,14 +36,18 @@ class AuthenticationController {
                 });
             }
             catch (err) {
-                return res.status(400).send({
+                res.status(400).send({
                     error: 'validation',
                     message: ['This email account already exists.']
                 });
             }
         });
     }
-    // eslint-disable-next-line consistent-return
+    /**
+     * Login Controller
+     * @param req {Request} the Request
+     * @param res {Response} the Response
+     */
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -49,14 +58,14 @@ class AuthenticationController {
                     }
                 });
                 if (!this.user) {
-                    return res.status(403).send({
+                    res.status(403).send({
                         error: 'authentication',
                         message: ['The login information was incorrect', 'user does not exist']
                     });
                 }
                 const isPasswordValid = yield bcrypt_1.default.compare(password, this.user.password);
                 if (!isPasswordValid) {
-                    return res.status(403).send({
+                    res.status(403).send({
                         error: 'authentication',
                         message: ['The login information was incorrect', 'password invalid']
                     });
