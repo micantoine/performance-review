@@ -2,6 +2,7 @@ import express from 'express';
 import AuthenticationController from './controllers/AuthenticationController';
 import AuthenticationControllerPolicy from './policies/AuthenticationControllerPolicy';
 import EmployeeController from './controllers/EmployeeController';
+import ReviewController from './controllers/ReviewController';
 import isAuthenticated from './policies/isAuthenticated';
 import isAdmin from './policies/isAdmin';
 
@@ -23,6 +24,11 @@ const routes = (app: express.Application): void => {
     isAuthenticated,
     isAdmin,
     EmployeeController.index
+  ]);
+
+  app.get('/reviews/:revieweeId', [
+    isAuthenticated,
+    ReviewController.view
   ]);
 };
 

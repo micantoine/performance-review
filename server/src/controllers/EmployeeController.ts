@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import db from '../models';
-import UserModel from '../models/User';
 
 class EmployeeController {
   /**
@@ -15,7 +14,7 @@ class EmployeeController {
           admin: false
         }
       });
-      const employeesJson = employees.map((user: UserModel) => user.toJSON());
+      const employeesJson = employees.map((user) => user.toJSON());
       res.send(employeesJson);
     } catch (err) {
       res.status(500).send({
