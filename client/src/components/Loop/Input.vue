@@ -1,5 +1,8 @@
 <template>
-  <input :data-oo-input="variant">
+  <input
+    :data-oo-input="variant"
+    :value="value"
+    @input="$emit('input', $event.target.value)" />
 </template>
 
 <script>
@@ -10,6 +13,7 @@ export default {
       type: String,
       default: '',
     },
+    value: String,
   },
 };
 </script>

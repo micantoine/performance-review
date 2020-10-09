@@ -5,11 +5,13 @@
       class="mb-5"
       type="text"
       placeholder="Email"
+      :variant="emailStatus"
       v-model="email" />
     <Input
       class="mb-10"
       type="password"
       placeholder="Password"
+      :variant="passwordStatus"
       v-model="password" />
     <Button
       variant="primary full"
@@ -38,23 +40,45 @@ export default {
   data() {
     return {
       email: '',
+      emailStatus: '',
       password: '',
+      passwordStatus: '',
       message: [],
     };
   },
   methods: {
     async login() {
-      try {
-        const response = await AuthenticationService.login({
-          email: this.email,
-          password: this.password,
-        });
+      this.message = [];
 
-        if (response.error) {
-          this.message = response.message;
+      if (!this.email) {
+        this.emailStatus = 'danger';
+        this.message = [
+          ...this.message,
+          'Email is empty',
+        ];
+      }
+
+      if (!this.password) {
+        this.passwordStatus = 'danger';
+        this.message = [
+          ...this.message,
+          'Password is empty',
+        ];
+      }
+
+      if (this.email && this.password) {
+        try {
+          const response = await AuthenticationService.login({
+            email: this.email,
+            password: this.password,
+          });
+
+          if (response.error) {
+            this.message = response.message;
+          }
+        } catch (error) {
+          this.message = error;
         }
-      } catch (error) {
-        this.message = error;
       }
     },
   },

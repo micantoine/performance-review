@@ -47,7 +47,13 @@ $ooLoop: ooAdd('palette', (
     padding: 0.5em 0.825em,
     border: 1px solid #eaeaea,
     background-color: #f8f8f8,
-  )
+  ),
+  variants: (
+    danger: (
+      background-color: #fff2f4,
+      border-color: #fdd6d6,
+    )
+  ),
 ));
 
 @include Spacing;
