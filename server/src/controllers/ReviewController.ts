@@ -9,16 +9,20 @@ class ReviewController {
    */
   static async index(req: Request, res: Response): Promise<void> {
     try {
+      let where = {};
+
+      if (req.user) {
+        where = {
+          reviewerId: req.user.id
+        };
+      }
+
       const reviews = await db.Review.findAll({
+        where,
         include: [
           {
             model: db.User,
             as: 'reviewee',
-            attributes: ['firstname', 'lastname', 'id']
-          },
-          {
-            model: db.User,
-            as: 'reviewer',
             attributes: ['firstname', 'lastname', 'id']
           }
         ]

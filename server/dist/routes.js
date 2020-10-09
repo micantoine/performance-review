@@ -25,6 +25,10 @@ const routes = (app) => {
         isAdmin_1.default,
         EmployeeController_1.default.index
     ]);
+    app.get('/reviews', [
+        isAuthenticated_1.default,
+        ReviewController_1.default.index
+    ]);
     app.get('/reviews/:revieweeId', [
         isAuthenticated_1.default,
         ReviewController_1.default.view

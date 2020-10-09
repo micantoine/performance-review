@@ -22,16 +22,18 @@ class ReviewController {
     static index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                let where = {};
+                if (req.user) {
+                    where = {
+                        reviewerId: req.user.id
+                    };
+                }
                 const reviews = yield models_1.default.Review.findAll({
+                    where,
                     include: [
                         {
                             model: models_1.default.User,
                             as: 'reviewee',
-                            attributes: ['firstname', 'lastname', 'id']
-                        },
-                        {
-                            model: models_1.default.User,
-                            as: 'reviewer',
                             attributes: ['firstname', 'lastname', 'id']
                         }
                     ]

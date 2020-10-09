@@ -26,6 +26,10 @@ const routes = (app: express.Application): void => {
     EmployeeController.index
   ]);
 
+  app.get('/reviews', [
+    isAuthenticated,
+    ReviewController.index
+  ]);
   app.get('/reviews/:revieweeId', [
     isAuthenticated,
     ReviewController.view
