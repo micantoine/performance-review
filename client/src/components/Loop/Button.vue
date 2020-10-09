@@ -1,7 +1,8 @@
 <template>
   <button
     type="button"
-    :data-oo-Button="variant">{{ label }}</button>
+    :data-oo-Button="variant"
+    @click="onClick">{{ label }}</button>
 </template>
 
 <script>
@@ -15,6 +16,11 @@ export default {
     variant: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    onClick() {
+      this.$emit('onClick', true);
     },
   },
 };
