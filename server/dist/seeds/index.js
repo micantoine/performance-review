@@ -12,11 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable import/extensions */
 const models_1 = __importDefault(require("../models"));
-// eslint-disable-next-line import/extensions
 const users_json_1 = __importDefault(require("./users.json"));
+const reviews_json_1 = __importDefault(require("./reviews.json"));
 models_1.default.sequelize.sync({ force: true })
     .then(() => __awaiter(void 0, void 0, void 0, function* () {
     yield Promise.all(users_json_1.default.map((user) => models_1.default.User.create(user)));
+    yield Promise.all(reviews_json_1.default.map((review) => models_1.default.Review.create(review)));
 }));
 //# sourceMappingURL=index.js.map
