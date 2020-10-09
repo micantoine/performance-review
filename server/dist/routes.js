@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const AuthenticationController_1 = __importDefault(require("./controllers/AuthenticationController"));
 const AuthenticationControllerPolicy_1 = __importDefault(require("./policies/AuthenticationControllerPolicy"));
 const EmployeeController_1 = __importDefault(require("./controllers/EmployeeController"));
+const isAuthenticated_1 = __importDefault(require("./policies/isAuthenticated"));
 const routes = (app) => {
     app.get('/', (req, res) => {
         res.send('Hello world!!');
@@ -14,7 +15,11 @@ const routes = (app) => {
         AuthenticationControllerPolicy_1.default.register.bind(AuthenticationControllerPolicy_1.default),
         AuthenticationController_1.default.register.bind(AuthenticationController_1.default)
     ]);
+    app.post('/login', [
+        AuthenticationController_1.default.login.bind(AuthenticationController_1.default)
+    ]);
     app.get('/employee', [
+        isAuthenticated_1.default,
         EmployeeController_1.default.index
     ]);
 };

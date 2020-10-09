@@ -12,32 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = __importDefault(require("../models"));
-class EmployeeController {
-    /**
-     * List of employees
-     * @param req {Request}
-     * @param res {Response}
-     */
-    static index(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const employees = yield models_1.default.User.findAll({
-                    where: {
-                        admin: false
-                    }
-                });
-                const employeesJson = employees.map((user) => user.toJSON());
-                res.send(employeesJson);
-            }
-            catch (err) {
-                res.status(500).send({
-                    error: 'employees',
-                    message: ['An error has occured trying to fetch the employees']
-                });
+const passport_jwt_1 = require("passport-jwt");
+const models_1 = __importDefault(require("./models"));
+const config_1 = __importDefault(require("./config/config"));
+const passport = new passport_jwt_1.Strategy({
+    jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config_1.default.authentication.jwtSecret
+}, (jwtPayload, done) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield models_1.default.User.findOne({
+            where: {
+                id: jwtPayload.id
             }
         });
+        if (!user) {
+            return done(new Error(), false);
+        }
+        return done(null, user);
     }
-}
-exports.default = EmployeeController;
-//# sourceMappingURL=EmployeeController.js.map
+    catch (err) {
+        return done(new Error(), false);
+    }
+}));
+exports.default = passport;
+//# sourceMappingURL=passport.js.map

@@ -18,7 +18,6 @@ class EmployeeController {
       const employeesJson = employees.map((user: UserModel) => user.toJSON());
       res.send(employeesJson);
     } catch (err) {
-      console.log(err);
       res.status(500).send({
         error: 'employees',
         message: ['An error has occured trying to fetch the employees']
