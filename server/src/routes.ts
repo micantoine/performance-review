@@ -3,7 +3,7 @@ import AuthenticationController from './controllers/AuthenticationController';
 import AuthenticationControllerPolicy from './policies/AuthenticationControllerPolicy';
 import EmployeeController from './controllers/EmployeeController';
 import isAuthenticated from './policies/isAuthenticated';
-import isAuthenticatedAdmin from './policies/isAuthenticatedAdmin';
+import isAdmin from './policies/isAdmin';
 
 const routes = (app: express.Application): void => {
   app.get('/', (req, res) => {
@@ -20,7 +20,8 @@ const routes = (app: express.Application): void => {
   ]);
 
   app.get('/employee', [
-    isAuthenticatedAdmin,
+    isAuthenticated,
+    isAdmin,
     EmployeeController.index
   ]);
 };
