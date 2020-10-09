@@ -4,10 +4,9 @@ import Joi from 'joi';
 class AuthenticationControllerPolicy {
   public schema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().required()
-    // password: Joi.string().regex(
-    //   new RegExp('^[a-zA-Z0-9]{8,32}$')
-    // )
+    password: Joi.string().regex(
+      new RegExp('^[a-zA-Z0-9]{8,32}$')
+    )
   })
 
   /**
