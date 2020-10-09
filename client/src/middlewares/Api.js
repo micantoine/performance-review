@@ -6,7 +6,6 @@
  * @return The fetch api response
  */
 const Api = (path, options, data) => {
-  debugger;
   return fetch(
     `${process.env.VUE_APP_API_ENDPOINT}/${path}`,
     {
