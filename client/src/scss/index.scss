@@ -18,6 +18,22 @@ $ooLoop: ooAdd('palette', (
 @include Container;
 @include Column;
 
+@include Typography ((
+  fontSize: (
+    values: (
+      'tiny': rem(12),
+    )
+  )
+));
+
+@include Color((
+  font: (
+    values: (
+      'danger': red,
+    )
+  )
+));
+
 @include Button((
   props: (
     padding: 0.5em 0.825em,
