@@ -9,6 +9,12 @@ const authenticate = (req: Request, res: Response, next: NextFunction): void => 
         message: ['you do not have access to this resource']
       });
     }
+    if (!user.admin) {
+      res.status(403).send({
+        error: 'admin',
+        message: ['you do not have permission']
+      });
+    }
     req.user = user;
     next();
   })(req, res, next);

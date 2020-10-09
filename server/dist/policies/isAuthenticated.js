@@ -12,10 +12,8 @@ const authenticate = (req, res, next) => {
                 message: ['you do not have access to this resource']
             });
         }
-        else {
-            req.user = user;
-            next();
-        }
+        req.user = user;
+        next();
     })(req, res, next);
 };
 exports.default = authenticate;
