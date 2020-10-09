@@ -3,7 +3,7 @@
     <h1 class="text-center mt-0">Login</h1>
     <Input
       class="mb-5"
-      type="text"
+      type="email"
       placeholder="Email"
       :variant="emailStatus"
       v-model="email" />
@@ -75,6 +75,14 @@ export default {
 
           if (response.error) {
             this.message = response.message;
+          }
+
+          if (response.success) {
+            this.$router.push(
+              response.user.admin
+                ? { name: 'admin' }
+                : { name: 'reviews' },
+            );
           }
         } catch (error) {
           this.message = error;

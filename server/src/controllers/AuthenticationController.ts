@@ -61,6 +61,7 @@ class AuthenticationController {
       }
 
       res.send({
+        success: true,
         user: this.filterAllowedUserData(),
         token: this.jwtSignUser()
       });
