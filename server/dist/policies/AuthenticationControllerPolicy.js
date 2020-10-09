@@ -8,10 +8,7 @@ class AuthenticationControllerPolicy {
     constructor() {
         this.schema = joi_1.default.object({
             email: joi_1.default.string().email().required(),
-            password: joi_1.default.string().required()
-            // password: Joi.string().regex(
-            //   new RegExp('^[a-zA-Z0-9]{8,32}$')
-            // )
+            password: joi_1.default.string().regex(new RegExp('^[a-zA-Z0-9]{8,32}$'))
         });
     }
     /**

@@ -6,8 +6,9 @@ class UserModel extends Model {
   public id!: number;
   public email!: string;
   public password!: string;
-  public name: string;
-  public isAdmin: boolean;
+  public firstname: string;
+  public lastname: string;
+  public admin: boolean;
 }
 
 function hashPassword(user: UserModel) {
@@ -41,18 +42,19 @@ UserModel.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    name: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    isAdmin: DataTypes.BOOLEAN
+    lastname: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    admin: DataTypes.BOOLEAN
   },
   {
+    modelName: 'User',
     tableName: 'users',
-    name: {
-      singular: 'user',
-      plural: 'users'
-    },
     sequelize,
     hooks: {
       beforeCreate: hashPassword,

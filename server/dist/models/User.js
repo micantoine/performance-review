@@ -35,17 +35,18 @@ UserModel.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
-    name: {
+    firstname: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true
     },
-    isAdmin: sequelize_1.DataTypes.BOOLEAN
-}, {
-    tableName: 'users',
-    name: {
-        singular: 'user',
-        plural: 'users'
+    lastname: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
     },
+    admin: sequelize_1.DataTypes.BOOLEAN
+}, {
+    modelName: 'User',
+    tableName: 'users',
     sequelize: sequelize_2.default,
     hooks: {
         beforeCreate: hashPassword,

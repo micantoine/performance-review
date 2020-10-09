@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models';
-import User from '../models/User';
+import UserModel from '../models/User';
 import config from '../config/config';
 
 class AuthenticationController {
-  public user: User;
+  private user: UserModel;
 
   /**
    * Register Controller
@@ -18,11 +18,7 @@ class AuthenticationController {
       this.user = await db.User.create(req.body);
 
       res.send({
-        user: {
-          email: this.user.email,
-          name: this.user.name,
-          isAdmin: this.user.isAdmin
-        },
+        user: this.filterAllowedUserData(),
         token: this.jwtSignUser()
       });
     } catch (err) {
@@ -35,8 +31,8 @@ class AuthenticationController {
 
   /**
    * Login Controller
-   * @param req {Request} the Request
-   * @param res {Response} the Response
+   * @param req {Request}
+   * @param res {Response}
    */
   public async login(req: Request, res: Response): Promise<void> {
     try {
@@ -65,9 +61,7 @@ class AuthenticationController {
       }
 
       res.send({
-        email,
-        name: this.user.name,
-        isAdmin: this.user.isAdmin,
+        user: this.filterAllowedUserData(),
         token: this.jwtSignUser()
       });
     } catch (err) {
@@ -79,10 +73,21 @@ class AuthenticationController {
   }
 
   /**
+   *  Filter data that are allowed to be send
+   */
+  protected filterAllowedUserData() {
+    const user = this.user.toJSON();
+    const blacklist: string[] = ['password'];
+
+    const filteredArray = Object.entries(user).filter((entry) => !blacklist.includes(entry[0]));
+    return Object.fromEntries(filteredArray);
+  }
+
+  /**
    * Create Token
    * @return {string}
    */
-  public jwtSignUser(): string {
+  protected jwtSignUser(): string {
     const ONE_WEEK = 60 * 60 * 24 * 7;
     return jwt.sign(this.user.toJSON(), config.authentication.jwtSecret, {
       expiresIn: ONE_WEEK

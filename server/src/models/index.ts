@@ -2,17 +2,19 @@ import { Sequelize } from 'sequelize';
 import sequelize from './sequelize';
 import UserModel from './User';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const db: any = {
+interface DbInterface {
+  User: typeof UserModel;
+  sequelize: Sequelize;
+}
+const db: DbInterface = {
   sequelize,
-  Sequelize,
   User: UserModel
 };
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+// Object.keys(db).forEach((modelName) => {
+//   if (db[modelName].associate) {
+//     db[modelName].associate(db);
+//   }
+// });
 
 export default db;

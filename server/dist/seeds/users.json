@@ -1,32 +1,37 @@
 [
     {
-        "name": "Administrator",
+        "firstname": "Administrator",
+        "lastname": "",
         "email": "admin@mail.com",
         "password": "admin",
-        "isAdmin": true
+        "admin": true
     },
     {
-        "name": "John Doe",
+        "firstname": "John",
+        "lastname": "Doe",
         "email": "johndoe@mail.com",
         "password": "demo",
-        "isAdmin": false
+        "admin": false
     },
     {
-        "name": "Jane Doe",
+        "firstname": "Jane",
+        "lastname": "Doe",
         "email": "janedoe@mail.com",
         "password": "demo",
-        "isAdmin": false
+        "admin": false
     },
     {
-        "name": "Noah Stag",
+        "firstname": "Noah",
+        "lastname": "Stag",
         "email": "noahstag@mail.com",
         "password": "demo",
-        "isAdmin": false
+        "admin": false
     },
     {
-        "name": "Chloe Dear",
+        "firstname": "Chloe",
+        "lastname": "Dear",
         "email": "chloedear@mail.com",
         "password": "demo",
-        "isAdmin": false
+        "admin": false
     }
 ]

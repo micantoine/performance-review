@@ -27,11 +27,7 @@ class AuthenticationController {
             try {
                 this.user = yield models_1.default.User.create(req.body);
                 res.send({
-                    user: {
-                        email: this.user.email,
-                        name: this.user.name,
-                        isAdmin: this.user.isAdmin
-                    },
+                    user: this.filterAllowedUserData(),
                     token: this.jwtSignUser()
                 });
             }
@@ -45,8 +41,8 @@ class AuthenticationController {
     }
     /**
      * Login Controller
-     * @param req {Request} the Request
-     * @param res {Response} the Response
+     * @param req {Request}
+     * @param res {Response}
      */
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -71,9 +67,7 @@ class AuthenticationController {
                     });
                 }
                 res.send({
-                    email,
-                    name: this.user.name,
-                    isAdmin: this.user.isAdmin,
+                    user: this.filterAllowedUserData(),
                     token: this.jwtSignUser()
                 });
             }
@@ -84,6 +78,15 @@ class AuthenticationController {
                 });
             }
         });
+    }
+    /**
+     *  Filter data that are allowed to be send
+     */
+    filterAllowedUserData() {
+        const user = this.user.toJSON();
+        const blacklist = ['password'];
+        const filteredArray = Object.entries(user).filter((entry) => !blacklist.includes(entry[0]));
+        return Object.fromEntries(filteredArray);
     }
     /**
      * Create Token
