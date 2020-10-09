@@ -8,7 +8,10 @@
 export default {
   name: 'Row',
   props: {
-    prop: String,
+    prop: {
+      type: String,
+      default: '',
+    },
   },
 };
 </script>

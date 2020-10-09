@@ -1,14 +1,12 @@
 <template>
-  <div :data-oo-col="prop">
-    <slot />
-  </div>
+  <input :data-oo-input="variant">
 </template>
 
 <script>
 export default {
-  name: 'Column',
+  name: 'Input',
   props: {
-    prop: {
+    variant: {
       type: String,
       default: '',
     },

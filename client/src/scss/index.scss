@@ -1,5 +1,9 @@
 @import '~oo-loop/loop';
 
+$ooLoop: ooAdd('palette', (
+  'primary': #e23759,
+));
+
 @include ooInit((
   dataAttr: true,
 ));
@@ -9,7 +13,25 @@
     background-color: #f8f8f8,
   )
 ));
+
 @include List;
 @include Container;
 @include Column;
-@include Button;
+
+@include Button((
+  props: (
+    padding: 0.5em 0.825em,
+    font-size: 1rem,
+    line-height: 1.4,
+  )
+));
+
+@include InputField((
+  props: (
+    padding: 0.5em 0.825em,
+    border: 1px solid #eaeaea,
+    background-color: #f8f8f8,
+  )
+));
+
+@include Spacing;
