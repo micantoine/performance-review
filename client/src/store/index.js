@@ -1,10 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
+
 import { SET_FLASH_MESSAGE, SET_USER } from './mutation-types';
+import actions from './actions';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [createPersistedState({
+    paths: ['isUserLoggedIn'],
+  })],
   state: {
     user: null,
     isUserLoggedIn: false,
