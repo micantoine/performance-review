@@ -28,11 +28,12 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import AuthenticationService from '../middlewares/AuthenticationService';
 import { Button, Input } from '../components/Loop';
 
 export default {
-  name: 'Home',
+  name: 'Login',
   components: {
     Button,
     Input,
@@ -54,12 +55,17 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'setUser',
+    ]),
+
     async login() {
       const response = await AuthenticationService.login(this.email, this.password);
 
       if (response.success) {
+        this.setUser(response.data.user);
         this.$router.push(
-          response.user.admin
+          response.data.user.admin
             ? { name: 'admin' }
             : { name: 'reviews' },
         );
