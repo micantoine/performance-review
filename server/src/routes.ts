@@ -20,6 +20,11 @@ const routes = (app: express.Application): void => {
     AuthenticationController.login.bind(AuthenticationController)
   ]);
 
+  app.get('/identity', [
+    isAuthenticated,
+    AuthenticationController.identity.bind(AuthenticationController)
+  ]);
+
   app.get('/employee', [
     isAuthenticated,
     isAdmin,

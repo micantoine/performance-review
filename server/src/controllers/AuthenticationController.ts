@@ -13,6 +13,7 @@ class AuthenticationController {
    * Register Controller
    * @param req {Request}
    * @param res  {Response}
+  * @return {Promise}
    */
   public async register(req: Request, res: Response): Promise<void> {
     try {
@@ -39,6 +40,7 @@ class AuthenticationController {
    * Login Controller
    * @param req {Request}
    * @param res {Response}
+   * @return {Promise}
    */
   public async login(req: Request, res: Response): Promise<void> {
     try {
@@ -91,11 +93,28 @@ class AuthenticationController {
   }
 
   /**
+   * Get logged in user identity
+   * @param req {Request}
+   * @param res {Response}
+   * @return {Promise}
+   */
+  public async identity(req: Request, res: Response): Promise<void> {
+    this.user = req.user;
+    res.send({
+      success: true,
+      data: {
+        user: this.filterAllowedUserData(),
+        token: this.jwtSignUser()
+      }
+    });
+  }
+
+  /**
    *  Filter data that are allowed to be send
    */
   protected filterAllowedUserData() {
     const user = this.user.toJSON();
-    const blacklist: string[] = ['password'];
+    const blacklist: string[] = ['password', 'createdAt', 'updatedAt'];
 
     const filteredArray = Object.entries(user).filter((entry) => !blacklist.includes(entry[0]));
     return Object.fromEntries(filteredArray);
