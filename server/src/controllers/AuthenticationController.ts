@@ -41,13 +41,6 @@ class AuthenticationController {
    * @param res {Response}
    */
   public async login(req: Request, res: Response): Promise<void> {
-    res.status(401).send({
-      error: 'authorization',
-      messages: [
-        ...formatErrorMessages(['you do not have access to this resource'])
-      ]
-    });
-
     try {
       const { email, password } = req.body;
 
