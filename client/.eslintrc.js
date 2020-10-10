@@ -14,6 +14,12 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
+  rules: {
+    'comma-dangle': ['error', {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+    }],
+  },
   overrides: [
     {
       files: [
