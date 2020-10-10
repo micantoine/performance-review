@@ -26,12 +26,10 @@ export default {
         return response;
       }
 
-      if (response.success) {
-        Cookie.set('token', response.data.token);
-        return {
-          ...response,
-        };
-      }
+      Cookie.set('token', response.data.token);
+      return {
+        ...response,
+      };
     } catch (errors) {
       return {
         errors,
@@ -62,17 +60,36 @@ export default {
         return response;
       }
 
-      if (response.success) {
-        Cookie.set('token', response.data.token);
-        return {
-          success: true,
-          ...response.data,
-        };
-      }
+      Cookie.set('token', response.data.token);
+      return {
+        ...response,
+      };
     } catch (errors) {
       return {
         errors,
-        success: false,
+        messages: [],
+      };
+    }
+  },
+
+  /**
+   * Identity
+   */
+  async identity() {
+    try {
+      const response = await Api('identity', { method: 'GET' });
+
+      if (!response.success) {
+        return response;
+      }
+
+      Cookie.set('token', response.data.token);
+      return {
+        ...response,
+      };
+    } catch (errors) {
+      return {
+        errors,
         messages: [],
       };
     }
