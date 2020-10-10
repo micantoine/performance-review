@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../models';
+import { formatErrorMessages } from '../utils';
 
 class EmployeeController {
   /**
@@ -21,8 +22,10 @@ class EmployeeController {
       });
     } catch (err) {
       res.status(500).send({
-        errors: ['employees'],
-        messages: ['An error has occured trying to fetch the employees']
+        error: 'internal error',
+        messages: [
+          ...formatErrorMessages(['An error has occured trying to fetch the employees'])
+        ]
       });
     }
   }

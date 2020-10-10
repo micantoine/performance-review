@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
+import { formatErrorMessages } from '../utils';
 
 class AuthenticationControllerPolicy {
   public schema = Joi.object({
@@ -22,24 +23,30 @@ class AuthenticationControllerPolicy {
       switch (error.details[0].context.key) {
         case 'email':
           res.status(400).send({
-            error: ['email'],
-            message: error.details[0].message
+            error: 'validation',
+            messages: [
+              ...formatErrorMessages([error.details[0].message], 'email')
+            ]
           });
           break;
         case 'password':
           res.status(400).send({
-            error: ['password'],
-            message: [
-              'Your password has failed',
-              'It must contain lowercase, uppercase, numbers.',
-              'It must be at least 8 characters long'
+            error: 'validation',
+            messages: [
+              ...formatErrorMessages([
+                'Your password has failed',
+                'It must contain lowercase, uppercase, numbers.',
+                'It must be at least 8 characters long'
+              ], 'password')
             ]
           });
           break;
         default:
           res.status(400).send({
-            error: ['validation'],
-            message: ['Invalid registration confirmation']
+            error: 'validation',
+            message: [
+              ...formatErrorMessages(['Invalid registration confirmation'])
+            ]
           });
           break;
       }

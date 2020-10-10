@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../models';
+import { formatErrorMessages } from '../utils';
 
 class ReviewController {
   /**
@@ -34,8 +35,10 @@ class ReviewController {
       });
     } catch (err) {
       res.status(500).send({
-        errors: ['reviews'],
-        message: ['An error has occured trying to fetch the employees']
+        errors: 'internal error',
+        message: [
+          ...formatErrorMessages(['An error has occured trying to fetch the employees'])
+        ]
       });
     }
   }
@@ -70,8 +73,10 @@ class ReviewController {
       });
     } catch (err) {
       res.status(500).send({
-        errors: ['reviews'],
-        messages: ['An error has occured trying to fetch the reviews']
+        errors: 'internal error',
+        messages: [
+          ...formatErrorMessages(['An error has occured trying to fetch the reviews'])
+        ]
       });
     }
   }

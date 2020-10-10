@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import db from '../models';
 import UserModel from '../models/User';
 import config from '../config/config';
+import { formatErrorMessages } from '../utils';
 
 class AuthenticationController {
   private user: UserModel;
@@ -26,8 +27,10 @@ class AuthenticationController {
       });
     } catch (err) {
       res.status(400).send({
-        errors: ['email'],
-        messages: ['This email account already exists.']
+        error: 'validation',
+        messages: [
+          ...formatErrorMessages(['This email account already exists.'], 'email')
+        ]
       });
     }
   }
@@ -38,6 +41,13 @@ class AuthenticationController {
    * @param res {Response}
    */
   public async login(req: Request, res: Response): Promise<void> {
+    res.status(401).send({
+      error: 'authorization',
+      messages: [
+        ...formatErrorMessages(['you do not have access to this resource'])
+      ]
+    });
+
     try {
       const { email, password } = req.body;
 
@@ -49,8 +59,13 @@ class AuthenticationController {
 
       if (!this.user) {
         res.status(403).send({
-          errors: ['email'],
-          messages: ['The login information was incorrect', 'User does not exist']
+          error: 'authentication',
+          messages: [
+            ...formatErrorMessages([
+              'The login information was incorrect',
+              'User does not exist'
+            ])
+          ]
         });
       }
 
@@ -58,8 +73,10 @@ class AuthenticationController {
 
       if (!isPasswordValid) {
         res.status(403).send({
-          errors: ['password'],
-          messages: ['Password invalid']
+          error: 'authentication',
+          messages: [
+            ...formatErrorMessages(['Password invalid'], 'password')
+          ]
         });
       }
 
@@ -72,8 +89,10 @@ class AuthenticationController {
       });
     } catch (err) {
       res.status(500).send({
-        errors: 'authentication',
-        messages: ['An error has occured trying to log in']
+        error: 'internal error',
+        messages: [
+          ...formatErrorMessages(['An error has occured trying to log in'])
+        ]
       });
     }
   }
