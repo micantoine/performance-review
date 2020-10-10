@@ -1,4 +1,4 @@
-// import router from '../router';
+import router from '../router';
 import store from '../store';
 import Cookie from './Cookie';
 
@@ -30,10 +30,10 @@ const Api = async (path, options, data) => {
       'setFlashMessage',
       jsonReponse.messages.map(item => [...item.message])
     );
-    // router.push({
-    //   name: 'login',
-    //   query: { redirect: router.currentRoute.fullPath },
-    // });
+    router.push({
+      name: 'login',
+      query: { redirect: router.currentRoute.fullPath },
+    });
   }
 
   // if (!response.ok && response.status === 403 && router.currentRoute.name !== 'login') {
