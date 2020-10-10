@@ -30,13 +30,24 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  // Is user logged in ?
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isUserLoggedIn) {
       next({
-        path: '/',
+        name: 'login',
         query: { redirect: to.fullPath },
       });
+    }
+    if (!store.getters.me) {
+      const me = await store.dispatch('fetchIdentity');
+      // token expired
+      if (!me) {
+        next({
+          name: 'login',
+          query: { redirect: to.fullPath },
+        });
+      }
     }
   }
   next();

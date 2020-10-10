@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Button from '@/components/Loop.Button.vue';
+import Button from '@/components/Loop/Button.vue';
 
 describe('Button.vue', () => {
   it('renders button variant', () => {

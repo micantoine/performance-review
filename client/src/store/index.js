@@ -33,12 +33,5 @@ export default new Vuex.Store({
       state.user = user;
     },
   },
-  actions: {
-    setFlashMessage({ commit }, messages) {
-      commit(SET_FLASH_MESSAGE, messages);
-    },
-    setUser({ commit }, user) {
-      commit(SET_USER, user);
-    },
-  },
+  actions,
 });
