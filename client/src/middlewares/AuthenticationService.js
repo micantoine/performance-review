@@ -29,8 +29,7 @@ export default {
       if (response.success) {
         Cookie.set('token', response.data.token);
         return {
-          success: true,
-          ...response.data,
+          ...response,
         };
       }
     } catch (errors) {

@@ -64,11 +64,16 @@ export default {
 
       if (response.success) {
         this.setUser(response.data.user);
-        this.$router.push(
-          response.data.user.admin
-            ? { name: 'admin' }
-            : { name: 'reviews' },
-        );
+
+        if (this.$route.query.redirect) {
+          this.$router.push({ path: this.$route.query.redirect });
+        } else {
+          this.$router.push(
+            response.data.user.admin
+              ? { name: 'admin' }
+              : { name: 'reviews' },
+          );
+        }
       }
 
       if (response.errors) {
