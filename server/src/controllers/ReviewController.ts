@@ -28,10 +28,13 @@ class ReviewController {
         ]
       });
       const employeesJson = reviews.map((review) => review.toJSON());
-      res.send(employeesJson);
+      res.send({
+        success: true,
+        data: employeesJson
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'reviews',
+        errors: ['reviews'],
         message: ['An error has occured trying to fetch the employees']
       });
     }
@@ -61,11 +64,14 @@ class ReviewController {
           }
         ]
       });
-      res.send(reviews);
+      res.send({
+        success: true,
+        data: reviews
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'reviews',
-        message: ['An error has occured trying to fetch the reviews']
+        errors: ['reviews'],
+        messages: ['An error has occured trying to fetch the reviews']
       });
     }
   }

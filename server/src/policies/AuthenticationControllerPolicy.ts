@@ -22,13 +22,13 @@ class AuthenticationControllerPolicy {
       switch (error.details[0].context.key) {
         case 'email':
           res.status(400).send({
-            error: 'validation',
+            error: ['email'],
             message: error.details[0].message
           });
           break;
         case 'password':
           res.status(400).send({
-            error: 'validation',
+            error: ['password'],
             message: [
               'Your password has failed',
               'It must contain lowercase, uppercase, numbers.',
@@ -38,7 +38,7 @@ class AuthenticationControllerPolicy {
           break;
         default:
           res.status(400).send({
-            error: 'validation',
+            error: ['validation'],
             message: ['Invalid registration confirmation']
           });
           break;

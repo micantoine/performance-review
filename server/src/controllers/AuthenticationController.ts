@@ -18,13 +18,16 @@ class AuthenticationController {
       this.user = await db.User.create(req.body);
 
       res.send({
-        user: this.filterAllowedUserData(),
-        token: this.jwtSignUser()
+        success: true,
+        data: {
+          user: this.filterAllowedUserData(),
+          token: this.jwtSignUser()
+        }
       });
     } catch (err) {
       res.status(400).send({
-        error: 'validation',
-        message: ['This email account already exists.']
+        errors: ['email'],
+        messages: ['This email account already exists.']
       });
     }
   }
@@ -46,8 +49,8 @@ class AuthenticationController {
 
       if (!this.user) {
         res.status(403).send({
-          error: 'authentication',
-          message: ['The login information was incorrect', 'user does not exist']
+          errors: ['email'],
+          messages: ['The login information was incorrect', 'User does not exist']
         });
       }
 
@@ -55,20 +58,22 @@ class AuthenticationController {
 
       if (!isPasswordValid) {
         res.status(403).send({
-          error: 'authentication',
-          message: ['The login information was incorrect', 'password invalid']
+          errors: ['password'],
+          messages: ['Password invalid']
         });
       }
 
       res.send({
         success: true,
-        user: this.filterAllowedUserData(),
-        token: this.jwtSignUser()
+        data: {
+          user: this.filterAllowedUserData(),
+          token: this.jwtSignUser()
+        }
       });
     } catch (err) {
       res.status(500).send({
-        error: 'authentication',
-        message: ['An error has occured trying to log in']
+        errors: 'authentication',
+        messages: ['An error has occured trying to log in']
       });
     }
   }

@@ -15,11 +15,14 @@ class EmployeeController {
         }
       });
       const employeesJson = employees.map((user) => user.toJSON());
-      res.send(employeesJson);
+      res.send({
+        success: true,
+        data: employeesJson
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'employees',
-        message: ['An error has occured trying to fetch the employees']
+        errors: ['employees'],
+        messages: ['An error has occured trying to fetch the employees']
       });
     }
   }
