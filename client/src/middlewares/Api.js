@@ -15,6 +15,7 @@ const Api = async (path, options, data) => {
     {
       ...options,
       headers: {
+        Authorization: `Bearer ${Cookie.get('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
