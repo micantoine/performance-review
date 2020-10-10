@@ -18,10 +18,10 @@
       label="Login"
       @onClick="login" />
     <ul
-      v-if="message"
+      v-if="messages"
       class="font-tiny color-danger mb-0">
-      <li v-for="notice in message" :key="notice">
-          {{ notice }}
+      <li v-for="message in messages" :key="message">
+          {{ message }}
       </li>
     </ul>
   </div>
@@ -40,53 +40,34 @@ export default {
   data() {
     return {
       email: '',
-      emailStatus: '',
       password: '',
-      passwordStatus: '',
-      message: [],
+      errors: [],
+      messages: [],
     };
+  },
+  computed: {
+    emailStatus() {
+      return this.errors.includes('email') ? 'danger' : '';
+    },
+    passwordStatus() {
+      return this.errors.includes('password') ? 'danger' : '';
+    },
   },
   methods: {
     async login() {
-      this.message = [];
+      const response = await AuthenticationService.login(this.email, this.password);
 
-      if (!this.email) {
-        this.emailStatus = 'danger';
-        this.message = [
-          ...this.message,
-          'Email is empty',
-        ];
+      if (response.success) {
+        this.$router.push(
+          response.user.admin
+            ? { name: 'admin' }
+            : { name: 'reviews' },
+        );
       }
 
-      if (!this.password) {
-        this.passwordStatus = 'danger';
-        this.message = [
-          ...this.message,
-          'Password is empty',
-        ];
-      }
-
-      if (this.email && this.password) {
-        try {
-          const response = await AuthenticationService.login({
-            email: this.email,
-            password: this.password,
-          });
-
-          if (response.error) {
-            this.message = response.message;
-          }
-
-          if (response.success) {
-            this.$router.push(
-              response.user.admin
-                ? { name: 'admin' }
-                : { name: 'reviews' },
-            );
-          }
-        } catch (error) {
-          this.message = error;
-        }
+      if (response.errors) {
+        this.errors = response.errors;
+        this.messages = response.messages;
       }
     },
   },
