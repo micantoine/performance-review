@@ -14,6 +14,9 @@ export default new Vuex.Store({
     isUserLoggedIn(state) {
       return state.isUserLoggedIn;
     },
+    me(state) {
+      return state.user;
+    },
   },
   mutations: {
     [SET_FLASH_MESSAGE](state, messages) {

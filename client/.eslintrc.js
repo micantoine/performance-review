@@ -19,6 +19,7 @@ module.exports = {
       "arrays": "always-multiline",
       "objects": "always-multiline",
     }],
+    'import/no-cycle': [2, { maxDepth: 1 }],
   },
   overrides: [
     {
