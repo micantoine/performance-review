@@ -20,8 +20,8 @@
     <ul
       v-if="messages"
       class="font-tiny color-danger mb-0">
-      <li v-for="message in messages" :key="message">
-          {{ message }}
+      <li v-for="message in messages" :key="message.context">
+         {{ message.message.join(', ') }}
       </li>
     </ul>
   </div>
@@ -42,16 +42,15 @@ export default {
     return {
       email: '',
       password: '',
-      errors: [],
       messages: [],
     };
   },
   computed: {
     emailStatus() {
-      return this.errors.includes('email') ? 'danger' : '';
+      return this.messages.filter(message => message.context === 'email')[0] ? 'danger' : '';
     },
     passwordStatus() {
-      return this.errors.includes('password') ? 'danger' : '';
+      return this.messages.filter(message => message.context === 'password')[0] ? 'danger' : '';
     },
   },
   methods: {
@@ -61,7 +60,6 @@ export default {
 
     async login() {
       const response = await AuthenticationService.login(this.email, this.password);
-
       if (response.success) {
         this.setUser(response.data.user);
 
@@ -76,8 +74,7 @@ export default {
         }
       }
 
-      if (response.errors) {
-        this.errors = response.errors;
+      if (response.error) {
         this.messages = response.messages;
       }
     },

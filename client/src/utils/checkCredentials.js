@@ -2,25 +2,30 @@
  * checkCredentials
  * @param {string} email
  * @param {string} password
- * @return {success: boolean, errors: array, messages: array}
+ * @return {error: string, messages: array}
  */
 
 export default (email, password) => {
-  const errors = [];
+  let error;
   const messages = [];
   if (!email) {
-    errors.push('email');
-    messages.push('Email is empty');
+    error = 'validation';
+    messages.push({
+      context: 'email',
+      message: ['Email is empty'],
+    });
   }
 
   if (!password) {
-    errors.push('password');
-    messages.push('Password is empty');
+    error = 'validation';
+    messages.push({
+      context: 'password',
+      message: ['Password is empty'],
+    });
   }
 
   return {
-    success: !messages.length,
-    errors,
+    error,
     messages,
   };
 };

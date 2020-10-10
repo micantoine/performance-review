@@ -12,7 +12,7 @@ export default {
   async login(email, password) {
     const credentialsStatus = checkCredentials(email, password);
 
-    if (!credentialsStatus.success) {
+    if (credentialsStatus.error) {
       return credentialsStatus;
     }
 
