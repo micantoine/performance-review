@@ -35,6 +35,20 @@
           <template v-slot:header>
             <h3 class="mt-0">Recent Reviews</h3>
           </template>
+          <ul class="list-unstyle mb-0">
+            <li
+              v-for="review in reviews" :key="review.id"
+            >
+              <router-link
+                :to="{
+                  name: 'admin-review',
+                  params: { revieweeId: review.id }
+                }"
+              >
+                <Review :review="review" />
+              </router-link>
+            </li>
+          </ul>
         </Box>
       </Column>
     </Row>
@@ -42,11 +56,10 @@
 </template>
 
 <script>
-import EmployeeService from '@/middlewares/EmployeeService';
-import ReviewService from '@/middlewares/ReviewService';
-import { Row, Column, Button } from '@/components/Loop';
-import Box from '@/components/Box.vue';
-import Employee from '@/components/Employee.vue';
+import EmployeeService from '../../middlewares/EmployeeService';
+import ReviewService from '../../middlewares/ReviewService';
+import { Row, Column, Button } from '../../components/Loop';
+import { Box, Employee, Review } from '../../components';
 
 export default {
   name: 'AdminHome',
@@ -54,8 +67,9 @@ export default {
     Button,
     Box,
     Column,
-    Row,
     Employee,
+    Review,
+    Row,
   },
   data() {
     return {
