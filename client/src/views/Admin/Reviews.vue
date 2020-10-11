@@ -16,15 +16,16 @@ export default {
   },
   data() {
     return {
+      user: null,
       reviews: [],
     };
   },
   async beforeMount() {
     const { revieweeId } = this.$route.params;
     const reviews = await ReviewService.view(revieweeId);
-    console.log(reviews);
     if (reviews.success) {
-      this.reviews = reviews.data;
+      this.reviews = reviews.data.reviews;
+      this.user = reviews.data.user;
     }
   },
 };

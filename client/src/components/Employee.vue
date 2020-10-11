@@ -4,7 +4,7 @@
       <img class="avatar" src="@/assets/user.svg" alt="" />
     </Column>
     <Column class="display">
-      {{ display }}<br/>
+      {{ user | displayName }}<br/>
       <span
         v-if="user.department"
         class="color-secondary font-small"
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { displayName } from '../utils';
 import { Row, Column } from './Loop';
 
 export default {
@@ -22,18 +23,13 @@ export default {
     Column,
     Row,
   },
+  filters: {
+    displayName,
+  },
   props: {
     user: {
       type: Object,
       required: true,
-    },
-  },
-  computed: {
-    display() {
-      if (!this.user.firstname && !this.user.lastname) {
-        return this.user.email;
-      }
-      return `${this.user.firstname} ${this.user.lastname}`;
     },
   },
 };

@@ -5,7 +5,7 @@
         <img width="20" src="@/assets/bubble.svg" alt="" />
       </Column>
       <Column class="display font-small">
-        <strong class="d-block">{{ display(reviewer) }}</strong>
+        <strong class="d-block">{{ reviewer | displayName }}</strong>
       </Column>
       <Column
         prop="fit self-valign-top"
@@ -15,7 +15,7 @@
       </Column>
     </Row>
     <p class="excerpt color-body font-small">
-      <strong class="reviewee">@{{ display(reviewee) }}</strong>
+      <strong class="reviewee">@{{ reviewee | displayName }}</strong>
       <span class="font-italic">{{ review.content }}</span>
     </p>
   </div>
@@ -23,7 +23,7 @@
 
 <script>
 import { Row, Column } from './Loop';
-import { formatDate } from '../utils';
+import { formatDate, displayName } from '../utils';
 
 export default {
   name: 'Review',
@@ -37,23 +37,16 @@ export default {
       required: true,
     },
   },
+  filters: {
+    formatDate,
+    displayName,
+  },
   computed: {
     reviewee() {
       return this.review.reviewee;
     },
     reviewer() {
       return this.review.reviewer;
-    },
-  },
-  filters: {
-    formatDate,
-  },
-  methods: {
-    display(user) {
-      if (!user.firstname && !user.lastname) {
-        return user.email;
-      }
-      return `${user.firstname} ${user.lastname}`;
     },
   },
 };
