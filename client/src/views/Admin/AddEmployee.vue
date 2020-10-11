@@ -94,8 +94,8 @@ export default {
   methods: {
     create() {
 
-    }
-  }
+    },
+  },
 };
 </script>
 

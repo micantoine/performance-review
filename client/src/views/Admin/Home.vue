@@ -24,15 +24,7 @@
                   params: { employeeId: employee.id }
                 }"
               >
-              <Row prop="gutter-small vgutter-less valign-middle">
-                <Column prop="fit">
-                  <img class="avatar" src="@/assets/user.svg" alt="" />
-                </Column>
-                <Column>
-                  {{ employee.firstname }} {{ employee.lastname}}<br/>
-                  <span class="color-secondary font-small">{{ employee.department.name }}</span>
-                </Column>
-              </Row>
+              <Employee :user="employee" />
               </router-link>
             </li>
           </ul>
@@ -53,6 +45,7 @@
 import EmployeeService from '@/middlewares/EmployeeService';
 import { Row, Column, Button } from '@/components/Loop';
 import Box from '@/components/Box.vue';
+import Employee from '@/components/Employee.vue';
 
 export default {
   name: 'AdminHome',
@@ -61,6 +54,7 @@ export default {
     Box,
     Column,
     Row,
+    Employee,
   },
   data() {
     return {
@@ -89,7 +83,7 @@ export default {
   }
   .employee a {
     position: relative;
-    padding-right: 15px;
+    padding-right: 20px;
     display: flex;
     line-height: 1.2;
     &::after {
@@ -104,14 +98,5 @@ export default {
       border-right: 2px solid #cdcdcd;
       transform: rotate(45deg) translateX(calc(-50% - 5px));
     }
-  }
-  .avatar {
-    padding: 8px;
-    display: block;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: #f8f8f8;
-    border: 1px solid #cdcdcd;
   }
 </style>
