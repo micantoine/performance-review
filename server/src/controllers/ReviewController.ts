@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../models';
+import UserModel from '../models/User';
 import { formatErrorMessages } from '../utils';
 
 class ReviewController {
@@ -144,9 +145,20 @@ class ReviewController {
           }
         ]
       });
+
+      let reviewee: UserModel;
+      reviews.forEach((review) => {
+        if (!reviewee) {
+          reviewee = review.reviewee;
+        }
+      });
+
       res.send({
         success: true,
-        data: reviews
+        data: {
+          user: reviewee,
+          reviews
+        }
       });
     } catch (err) {
       res.status(500).send({

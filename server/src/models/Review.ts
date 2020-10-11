@@ -1,10 +1,11 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from './sequelize';
-import User from './User';
+import UserModel from './User';
 
 class ReviewModel extends Model {
   public id!: number;
   public content!: string;
+  reviewee?: UserModel;
 }
 
 ReviewModel.init(
@@ -26,11 +27,11 @@ ReviewModel.init(
   }
 );
 
-ReviewModel.belongsTo(User, {
+ReviewModel.belongsTo(UserModel, {
   as: 'reviewer',
   foreignKey: 'reviewerId'
 });
-ReviewModel.belongsTo(User, {
+ReviewModel.belongsTo(UserModel, {
   as: 'reviewee',
   foreignKey: 'revieweeId'
 });
