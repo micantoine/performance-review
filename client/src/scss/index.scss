@@ -43,6 +43,7 @@ $ooLoop: ooAdd('palette', (
 @include Color((
   font: (
     values: (
+      'body': oo('body.props.color'),
       'danger': red,
     )
   )

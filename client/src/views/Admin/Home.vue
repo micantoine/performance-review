@@ -21,7 +21,8 @@
                   <img class="avatar" src="@/assets/user.svg" alt="" />
                 </Column>
                 <Column>
-                  {{ employee.firstname }} {{ employee.lastname}}
+                  {{ employee.firstname }} {{ employee.lastname}}<br/>
+                  <span class="color-secondary font-small">{{ employee.department.name }}</span>
                 </Column>
               </Row>
               </router-link>
@@ -74,6 +75,7 @@ export default {
     position: relative;
     padding-right: 15px;
     display: flex;
+    line-height: 1.2;
     &::after {
       position: absolute;
       top: 50%;
@@ -84,7 +86,7 @@ export default {
       height: 10px;
       border-top: 2px solid #cdcdcd;
       border-right: 2px solid #cdcdcd;
-      transform: rotate(45deg) translateX(-50%);
+      transform: rotate(45deg) translateX(calc(-50% - 5px));
     }
   }
   .avatar {
