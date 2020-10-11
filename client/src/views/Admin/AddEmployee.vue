@@ -45,12 +45,17 @@
         v-model="password"
         required />
       <Button
+        class="mb-5"
         variant="primary full"
         label="Create"
         @onClick="create" />
+      <Button
+        variant="full"
+        label="Cancel"
+        @onClick="cancel" />
       <ul
         v-if="messages"
-        class="font-tiny color-danger mb-0">
+        class="font-tiny color-danger mt-15 mb-0">
         <li v-for="message in messages" :key="message.context">
           {{ message.message.join(', ') }}
         </li>
@@ -60,9 +65,10 @@
 </template>
 
 <script>
-// import EmployeeService from '@/middlewares/EmployeeService';
+import EmployeeService from '@/middlewares/EmployeeService';
 import { Button, Input, Column, Row } from '@/components/Loop';
 import Box from '@/components/Box.vue';
+
 
 export default {
   name: 'AddEmployee',
@@ -75,11 +81,11 @@ export default {
   },
   data() {
     return {
-      email: null,
-      password: null,
-      firstname: null,
-      lastname: null,
-      department: null,
+      email: '',
+      password: '',
+      firstname: '',
+      lastname: '',
+      departmentId: null,
       messages: [],
     };
   },
@@ -92,8 +98,26 @@ export default {
     },
   },
   methods: {
-    create() {
+    async create() {
+      const response = await EmployeeService.create({
+        email: this.email,
+        password: this.password,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        department: this.department,
+      });
+      console.log(response);
 
+      if (response.success) {
+        this.$router.push('/admin');
+      }
+
+      if (response.error) {
+        this.messages = response.messages;
+      }
+    },
+    cancel() {
+      this.$router.push('/admin');
     },
   },
 };

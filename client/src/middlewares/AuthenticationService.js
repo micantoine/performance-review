@@ -84,9 +84,7 @@ export default {
       }
 
       Cookie.set('token', response.data.token);
-      return {
-        ...response,
-      };
+      return response;
     } catch (errors) {
       return {
         errors,

@@ -8,10 +8,10 @@ class EmployeeControllerPolicy {
     password: Joi.string().regex(
       new RegExp('^[a-zA-Z0-9]{8,32}$')
     ).required(),
+    firstname: Joi.string().allow(''),
+    lastname: Joi.string().allow(''),
     admin: Joi.boolean().optional(),
-    firstname: Joi.string().optional(),
-    lastname: Joi.string().optional(),
-    departmentId: Joi.number().optional()
+    departmentId: Joi.number().allow(0).optional()
   })
 
   /**
@@ -48,8 +48,8 @@ class EmployeeControllerPolicy {
         default:
           res.status(400).send({
             error: 'validation',
-            message: [
-              ...formatErrorMessages(['Invalid registration confirmation'], error.details[0].context.key)
+            messages: [
+              ...formatErrorMessages([error.details[0].message], error.details[0].context.key)
             ]
           });
           break;

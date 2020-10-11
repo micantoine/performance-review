@@ -44,7 +44,7 @@ class AuthenticationControllerPolicy {
         default:
           res.status(400).send({
             error: 'validation',
-            message: [
+            messages: [
               ...formatErrorMessages(['Invalid registration confirmation'])
             ]
           });
