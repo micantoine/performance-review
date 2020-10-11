@@ -17,9 +17,20 @@ const router = new Router({
     },
     {
       path: '/admin',
-      name: 'admin',
-      component: () => import(/* webpackChunkName: "admin" */ './views/Admin.vue'),
+      component: () => import(/* webpackChunkName: "admin" */ './views/Admin/Layout.vue'),
       meta: { requiresAuth: true },
+      children: [
+        {
+          name: 'admin',
+          path: '',
+          component: () => import(/* webpackChunkName: "admin-home" */ './views/Admin/Home.vue'),
+        },
+        {
+          name: 'admin-employee',
+          path: 'employee/:employeeId',
+          component: () => import(/* webpackChunkName: "admin-employee" */ './views/Admin/Employee.vue'),
+        },
+      ],
     },
     {
       path: '/reviews',
