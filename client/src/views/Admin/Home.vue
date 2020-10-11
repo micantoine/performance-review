@@ -4,16 +4,21 @@
     <Row>
       <Column prop="span12 auto@sm span4@md">
         <Box>
-          <h3 class="mt-0 text-center">Employees</h3>
-          <ul class="list-unstyle">
-            <li v-for="employee in employees" :key="employee.id">
-              <router-link :to="{
-                name: 'admin-employee',
-                params: { employeeId: employee.id }
-              }">
-              <Row prop="gutter-small" class="mb-0">
+          <h3 class="mt-0">Employees</h3>
+          <ul class="list-unstyle mb-0">
+            <li
+              v-for="employee in employees" :key="employee.id"
+              class="employee"
+            >
+              <router-link
+                :to="{
+                  name: 'admin-employee',
+                  params: { employeeId: employee.id }
+                }"
+              >
+              <Row prop="gutter-small vgutter-less valign-middle">
                 <Column prop="fit">
-                  <figure class="img-placeholder"></figure>
+                  <img class="avatar" src="@/assets/user.svg" alt="" />
                 </Column>
                 <Column>
                   {{ employee.firstname }} {{ employee.lastname}}
@@ -57,13 +62,38 @@ export default {
 };
 </script>
 
-<style scoped>
-  .img-placeholder {
-    margin: 0;
+<style lang="scss" scoped>
+  .employee:not(:last-child)::after {
+    margin-top: .8em;
+    margin-bottom: .8em;
     display: block;
-    width: 50px;
-    height: 50px;
+    content: '';
+    border-top: 1px solid #eeeeee;
+  }
+  .employee a {
+    position: relative;
+    padding-right: 15px;
+    display: flex;
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      content: '';
+      display: flex;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid #cdcdcd;
+      border-right: 2px solid #cdcdcd;
+      transform: rotate(45deg) translateX(-50%);
+    }
+  }
+  .avatar {
+    padding: 8px;
+    display: block;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
+    background-color: #f8f8f8;
     border: 1px solid #cdcdcd;
   }
 </style>

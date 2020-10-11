@@ -3,7 +3,7 @@
     <div v-if="isUserLoggedIn" class="container">
       <router-link
         to="logout"
-        class="float-right">Logout</router-link>
+        class="font-small float-right">Logout</router-link>
     </div>
     <router-view/>
   </div>
