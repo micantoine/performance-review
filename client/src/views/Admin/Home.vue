@@ -62,7 +62,7 @@ export default {
     };
   },
   async mounted() {
-    const employees = await EmployeeService.employee();
+    const employees = await EmployeeService.list();
     this.employees = employees.data;
   },
   methods: {

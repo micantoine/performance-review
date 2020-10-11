@@ -38,19 +38,37 @@
 
       <label for="input-password">Password</label>
       <Input
-        class="mb-30"
+        class="mb-10"
         id="input-password"
         type="password"
         :variant="passwordStatus"
         v-model="password"
         required />
+
+      <label for="input-department">
+        Department
+        <small class="color-secondary">(Optional)</small>
+      </label>
+      <div data-oo-select>
+        <select
+          v-model="departmentId"
+          class="mb-30">
+          <option disabled :value="null">Please select a Department</option>
+          <option
+            v-for="department in departments"
+            :key="`department-${department.id}`"
+            :value="department.id"
+          >{{ department.name }}</option>
+        </select>
+      </div>
+
       <Button
         class="mb-5"
         variant="primary full"
         label="Create"
         @onClick="create" />
       <Button
-        variant="full"
+        variant="secondary full"
         label="Cancel"
         @onClick="cancel" />
       <ul
@@ -66,8 +84,11 @@
 
 <script>
 import EmployeeService from '@/middlewares/EmployeeService';
-import { Button, Input, Column, Row } from '@/components/Loop';
+import DepartmentService from '@/middlewares/DepartmentService';
 import Box from '@/components/Box.vue';
+import {
+  Button, Input, Column, Row
+} from '@/components/Loop';
 
 
 export default {
@@ -87,6 +108,7 @@ export default {
       lastname: '',
       departmentId: null,
       messages: [],
+      departments: [],
     };
   },
   computed: {
@@ -97,6 +119,12 @@ export default {
       return this.messages.filter(message => message.context === 'password')[0] ? 'danger' : '';
     },
   },
+  async mounted() {
+    const response = await DepartmentService.list();
+    if (response.success) {
+      this.departments = response.data;
+    }
+  },
   methods: {
     async create() {
       const response = await EmployeeService.create({
@@ -104,9 +132,8 @@ export default {
         password: this.password,
         firstname: this.firstname,
         lastname: this.lastname,
-        department: this.department,
+        departmentId: this.departmentId,
       });
-      console.log(response);
 
       if (response.success) {
         this.$router.push('/admin');
@@ -125,7 +152,7 @@ export default {
 
 <style scoped>
   .box {
-    margin-top: 20vh;
+    margin-top: 10vh;
     margin-left: auto;
     margin-right: auto;
     max-width: 500px;

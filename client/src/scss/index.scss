@@ -61,11 +61,17 @@ $ooLoop: ooAdd('palette', (
     line-height: 1.4,
   ),
   outline: true,
+  colors: (
+    _this('palette'),
+    (
+      'secondary': #e8e8e8,
+    )
+  ),
   variants: (
     'tiny': (
       padding: 0.25em 0.825em,
       font-size: .8rem,
-    )
+    ),
   )
 ));
 
@@ -87,6 +93,13 @@ $ooLoop: ooAdd('palette', (
       border-color: #fdd6d6,
     )
   ),
+));
+
+@include SelectField((
+  props: (
+    padding: this('input.props.padding'),
+  ),
+  variants: this('input.variants'),
 ));
 
 @include Spacing;
