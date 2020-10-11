@@ -14,6 +14,11 @@ $ooLoop: ooAdd('palette', (
   )
 ));
 
+@include Headings((
+  props: (
+    margin-bottom: 0.67em,
+  )
+));
 @include Content;
 @include List;
 
@@ -54,9 +59,22 @@ $ooLoop: ooAdd('palette', (
     padding: 0.5em 0.825em,
     font-size: 1rem,
     line-height: 1.4,
+  ),
+  outline: true,
+  variants: (
+    'tiny': (
+      padding: 0.25em 0.825em,
+      font-size: .8rem,
+    )
   )
 ));
 
+@include Label((
+  props: (
+    font-weight: 400,
+    font-size: .8rem,
+  )
+));
 @include InputField((
   props: (
     padding: 0.5em 0.825em,

@@ -3,8 +3,16 @@
     <h1>Hi Admin</h1>
     <Row>
       <Column prop="span12 auto@sm span4@md">
-        <Box>
-          <h3 class="mt-0">Employees</h3>
+        <Box :hasHeader="true">
+          <template v-slot:header>
+            <Button
+              class="float-right"
+              variant="primary tiny"
+              label="Add"
+              @onClick="addEmployee"
+            />
+            <h3 class="mt-0">Employees</h3>
+          </template>
           <ul class="list-unstyle mb-0">
             <li
               v-for="employee in employees" :key="employee.id"
@@ -31,8 +39,10 @@
         </Box>
       </Column>
       <Column>
-        <Box>
-          <h3 class="mt-0 text-center">Recent Reviews</h3>
+        <Box :hasHeader="true">
+          <template v-slot:header>
+            <h3 class="mt-0">Recent Reviews</h3>
+          </template>
         </Box>
       </Column>
     </Row>
@@ -41,12 +51,13 @@
 
 <script>
 import EmployeeService from '@/middlewares/EmployeeService';
-import { Row, Column } from '@/components/Loop';
+import { Row, Column, Button } from '@/components/Loop';
 import Box from '@/components/Box.vue';
 
 export default {
   name: 'AdminHome',
   components: {
+    Button,
     Box,
     Column,
     Row,
@@ -59,6 +70,11 @@ export default {
   async mounted() {
     const employees = await EmployeeService.employee();
     this.employees = employees.data;
+  },
+  methods: {
+    addEmployee() {
+      this.$router.push({ name: 'add-employee' });
+    },
   },
 };
 </script>

@@ -39,8 +39,13 @@ const router = new Router({
         },
         {
           name: 'admin-employee',
-          path: 'employee/:employeeId',
+          path: 'employee/view/:employeeId',
           component: () => import(/* webpackChunkName: "admin-employee" */ './views/Admin/Employee.vue'),
+        },
+        {
+          name: 'add-employee',
+          path: 'employee/add',
+          component: () => import(/* webpackChunkName: "add-employee" */ './views/Admin/AddEmployee.vue'),
         },
       ],
     },

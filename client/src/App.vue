@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="isUserLoggedIn" class="container">
+    <div v-if="isUserLoggedIn" class="container mt-30">
       <router-link
-        to="logout"
+        to="/logout"
         class="font-small float-right">Logout</router-link>
     </div>
     <router-view/>
