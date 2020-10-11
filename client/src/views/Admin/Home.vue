@@ -16,7 +16,7 @@
           <ul class="list-unstyle mb-0">
             <li
               v-for="employee in employees" :key="employee.id"
-              class="employee"
+              class="employee list-item"
             >
               <router-link
                 :to="{
@@ -38,6 +38,7 @@
           <ul class="list-unstyle mb-0">
             <li
               v-for="review in reviews" :key="review.id"
+              class="list-item"
             >
               <router-link
                 :to="{
@@ -56,10 +57,10 @@
 </template>
 
 <script>
-import EmployeeService from '../../middlewares/EmployeeService';
-import ReviewService from '../../middlewares/ReviewService';
-import { Row, Column, Button } from '../../components/Loop';
-import { Box, Employee, Review } from '../../components';
+import EmployeeService from '@/middlewares/EmployeeService';
+import ReviewService from '@/middlewares/ReviewService';
+import { Row, Column, Button } from '@/components/Loop';
+import { Box, Employee, Review } from '@/components';
 
 export default {
   name: 'AdminHome',
@@ -96,7 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .employee:not(:last-child)::after {
+  .list-item:not(:last-child)::after {
     margin-top: .8em;
     margin-bottom: .8em;
     display: block;

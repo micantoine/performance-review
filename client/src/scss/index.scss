@@ -105,3 +105,12 @@ $ooLoop: ooAdd('palette', (
 
 @include Spacing;
 @include Float;
+
+@include generateUtilities((
+  display: (
+    prefix: 'd',
+    values: (
+      'block',
+    )
+  )
+));
