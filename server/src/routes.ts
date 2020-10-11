@@ -4,14 +4,11 @@ import AuthenticationControllerPolicy from './policies/AuthenticationControllerP
 import EmployeeController from './controllers/EmployeeController';
 import EmployeeControllerPolicy from './policies/EmployeeControllerPolicy';
 import ReviewController from './controllers/ReviewController';
+import DepartmentController from './controllers/DepartmentController';
 import isAuthenticated from './policies/isAuthenticated';
 import isAdmin from './policies/isAdmin';
 
 const routes = (app: express.Application): void => {
-  app.get('/', (req, res) => {
-    res.send('Hello world!!');
-  });
-
   app.post('/register', [
     AuthenticationControllerPolicy.register.bind(AuthenticationControllerPolicy),
     AuthenticationController.register.bind(AuthenticationController)
@@ -46,6 +43,10 @@ const routes = (app: express.Application): void => {
   app.get('/reviews/:revieweeId', [
     isAuthenticated,
     ReviewController.view
+  ]);
+
+  app.get('/department', [
+    DepartmentController.index
   ]);
 };
 
