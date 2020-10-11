@@ -6,7 +6,7 @@ export default {
   /**
    * Get list employee list
    */
-  async employee() {
+  async list() {
     try {
       const response = await Api('employee', { method: 'GET' });
       return response;
