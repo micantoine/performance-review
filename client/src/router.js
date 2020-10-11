@@ -47,6 +47,11 @@ const router = new Router({
           path: 'employee/add',
           component: () => import(/* webpackChunkName: "add-employee" */ './views/Admin/AddEmployee.vue'),
         },
+        {
+          name: 'admin-reviews',
+          path: 'reviews/:revieweeId',
+          component: () => import(/* webpackChunkName: "admin-reviews" */ './views/Admin/Reviews.vue'),
+        },
       ],
     },
     {

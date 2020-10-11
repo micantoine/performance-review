@@ -42,8 +42,8 @@
             >
               <router-link
                 :to="{
-                  name: 'admin-review',
-                  params: { revieweeId: review.id }
+                  name: 'admin-reviews',
+                  params: { revieweeId: review.reviewee.id }
                 }"
               >
                 <Review :review="review" />
