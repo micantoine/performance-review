@@ -1,22 +1,25 @@
 <template>
-  <div>
+  <div :class="{'font-small' : hasExcerpt}">
     <Row prop="gutter-tiny vgutter-less">
       <Column prop="fit">
         <img width="20" src="@/assets/bubble.svg" alt="" />
       </Column>
-      <Column class="display font-small">
-        <strong class="d-block">{{ reviewer | displayName }}</strong>
+      <Column class="display">
+        <strong class="d-block color-primary">{{ reviewer | displayName }}</strong>
       </Column>
-      <Column
-        prop="fit self-valign-top"
-        class="font-small"
-      >
-        <small class="color-secondary">{{ review.updatedAt | formatDate }}</small>
+      <Column prop="fit self-valign-top">
+        <small class="d-block color-secondary">{{ review.updatedAt | formatDate }}</small>
       </Column>
     </Row>
-    <p class="excerpt color-body font-small">
-      <strong class="reviewee">@{{ reviewee | displayName }}</strong>
-      <span class="font-italic">{{ review.content }}</span>
+    <p
+      class="color-body"
+      :class="{'excerpt' : hasExcerpt}"
+    >
+      <strong
+       v-if="showReviewee"
+       class="reviewee"
+      >@{{ reviewee | displayName }}</strong>
+      <span :class="{'font-italic' : hasExcerpt}">{{ review.content }}</span>
     </p>
   </div>
 </template>
@@ -35,6 +38,14 @@ export default {
     review: {
       type: Object,
       required: true,
+    },
+    showReviewee: {
+      type: Boolean,
+      default: true,
+    },
+    hasExcerpt: {
+      type: Boolean,
+      default: true,
     },
   },
   filters: {

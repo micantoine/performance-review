@@ -4,6 +4,9 @@
  * @return {string}
  */
 const displayName = (user) => {
+  if (!user) {
+    return '';
+  }
   if (!user.firstname && !user.lastname) {
     return user.email;
   }
