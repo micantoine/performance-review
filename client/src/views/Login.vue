@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <Box class="login">
     <h1 class="text-center mt-0">Login</h1>
     <Input
       class="mb-5"
@@ -24,17 +24,19 @@
          {{ message.message.join(', ') }}
       </li>
     </ul>
-  </div>
+  </Box>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import AuthenticationService from '../middlewares/AuthenticationService';
 import { Button, Input } from '../components/Loop';
+import Box from '../components/Box.vue';
 
 export default {
   name: 'Login',
   components: {
+    Box,
     Button,
     Input,
   },
@@ -88,12 +90,6 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
-    padding: 20px;
-    width: 100%;
     max-width: 340px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 5px 5px 5px -4px rgba(0,0,0, .15);
   }
 </style>
