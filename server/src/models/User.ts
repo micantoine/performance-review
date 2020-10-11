@@ -51,7 +51,10 @@ UserModel.init(
       type: DataTypes.STRING,
       allowNull: true
     },
-    admin: DataTypes.BOOLEAN
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   },
   {
     modelName: 'User',

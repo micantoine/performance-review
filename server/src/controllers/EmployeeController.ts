@@ -1,4 +1,3 @@
-import { hash } from 'bcrypt';
 import { Request, Response } from 'express';
 import db from '../models';
 import { formatErrorMessages } from '../utils';
@@ -36,6 +35,33 @@ class EmployeeController {
         error: 'internal error',
         messages: [
           ...formatErrorMessages(['An error has occured trying to fetch the employees'])
+        ]
+      });
+    }
+  }
+
+  /**
+   * Create Employer Controller
+   * @param req {Request}
+   * @param res  {Response}
+   * @return {Promise}
+   */
+  static async create(req: Request, res: Response): Promise<void> {
+    try {
+      const user = await db.User.create(req.body);
+      res.send({
+        success: true,
+        data: {
+          email: user.email,
+          id: user.id,
+          admin: user.admin
+        }
+      });
+    } catch (err) {
+      res.status(400).send({
+        error: 'validation',
+        messages: [
+          ...formatErrorMessages(['This email account already exists.'], 'email')
         ]
       });
     }

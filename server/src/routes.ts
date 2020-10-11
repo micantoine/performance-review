@@ -2,6 +2,7 @@ import express from 'express';
 import AuthenticationController from './controllers/AuthenticationController';
 import AuthenticationControllerPolicy from './policies/AuthenticationControllerPolicy';
 import EmployeeController from './controllers/EmployeeController';
+import EmployeeControllerPolicy from './policies/EmployeeControllerPolicy';
 import ReviewController from './controllers/ReviewController';
 import isAuthenticated from './policies/isAuthenticated';
 import isAdmin from './policies/isAdmin';
@@ -29,6 +30,13 @@ const routes = (app: express.Application): void => {
     isAuthenticated,
     isAdmin,
     EmployeeController.index
+  ]);
+
+  app.post('/employee/create', [
+    isAuthenticated,
+    isAdmin,
+    EmployeeControllerPolicy.create.bind(EmployeeControllerPolicy),
+    EmployeeController.create
   ]);
 
   app.get('/reviews', [
