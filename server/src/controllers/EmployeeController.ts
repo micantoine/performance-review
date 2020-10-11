@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import { Request, Response } from 'express';
 import db from '../models';
 import { formatErrorMessages } from '../utils';
@@ -15,8 +16,15 @@ class EmployeeController {
           admin: false
         },
         attributes: {
-          exclude: ['password']
-        }
+          exclude: ['password', 'departmentId']
+        },
+        include: [
+          {
+            model: db.Department,
+            as: 'department',
+            attributes: ['name']
+          }
+        ]
       });
       const employeesJson = employees.map((user) => user.toJSON());
       res.send({
