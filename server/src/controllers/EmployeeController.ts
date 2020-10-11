@@ -13,6 +13,9 @@ class EmployeeController {
       const employees = await db.User.findAll({
         where: {
           admin: false
+        },
+        attributes: {
+          exclude: ['password']
         }
       });
       const employeesJson = employees.map((user) => user.toJSON());
