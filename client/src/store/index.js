@@ -9,16 +9,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   plugins: [createPersistedState({
-    paths: ['isUserLoggedIn'],
+    paths: ['isUserLoggedIn', 'isAdmin'],
   })],
   state: {
     user: null,
     isUserLoggedIn: false,
+    isAdmin: false,
     flashMessage: [],
   },
   getters: {
     isUserLoggedIn(state) {
       return state.isUserLoggedIn;
+    },
+    isAdmin(state) {
+      return state.isAdmin;
     },
     me(state) {
       return state.user;
@@ -30,6 +34,7 @@ export default new Vuex.Store({
     },
     [SET_USER](state, user) {
       state.isUserLoggedIn = user !== null;
+      state.isAdmin = user !== null && user.admin;
       state.user = user;
     },
   },

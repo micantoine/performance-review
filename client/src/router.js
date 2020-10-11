@@ -31,8 +31,8 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  // Is user logged in ?
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Is user logged in ?
     if (!store.getters.isUserLoggedIn) {
       next({
         name: 'login',
@@ -49,6 +49,12 @@ router.beforeEach(async (to, from, next) => {
         });
       }
     }
+  }
+  // Is user already logged in on login page ? redirect
+  if (to.name === 'login' && store.getters.isUserLoggedIn) {
+    next({
+      name: store.getters.isAdmin ? 'admin' : 'reviews',
+    });
   }
   next();
 });
