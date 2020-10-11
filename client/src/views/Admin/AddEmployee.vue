@@ -90,7 +90,6 @@ import {
   Button, Input, Column, Row
 } from '@/components/Loop';
 
-
 export default {
   name: 'AddEmployee',
   components: {

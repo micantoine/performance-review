@@ -43,6 +43,7 @@
 
 <script>
 import EmployeeService from '@/middlewares/EmployeeService';
+import ReviewService from '@/middlewares/ReviewService';
 import { Row, Column, Button } from '@/components/Loop';
 import Box from '@/components/Box.vue';
 import Employee from '@/components/Employee.vue';
@@ -59,11 +60,18 @@ export default {
   data() {
     return {
       employees: [],
+      reviews: [],
     };
   },
   async mounted() {
     const employees = await EmployeeService.list();
-    this.employees = employees.data;
+    if (employees.success) {
+      this.employees = employees.data;
+    }
+    const reviews = await ReviewService.list();
+    if (reviews.success) {
+      this.reviews = reviews.data;
+    }
   },
   methods: {
     addEmployee() {
