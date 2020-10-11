@@ -14,9 +14,20 @@ $ooLoop: ooAdd('palette', (
   )
 ));
 
+@include Content;
 @include List;
-@include Container;
-@include Column;
+
+@include Container((
+  maxWidth: 1080px,
+));
+
+@include Column((
+  gutter: (
+    sizes: (
+      'small': 1rem,
+    ),
+  )
+));
 
 @include Typography ((
   fontSize: (
@@ -57,3 +68,4 @@ $ooLoop: ooAdd('palette', (
 ));
 
 @include Spacing;
+@include Float;

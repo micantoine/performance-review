@@ -1,7 +1,20 @@
 <template>
-  <router-view/>
+  <div>
+    <div v-if="isUserLoggedIn" class="container">
+      <router-link
+        to="logout"
+        class="float-right">Logout</router-link>
+    </div>
+    <router-view/>
+  </div>
 </template>
 
-<style lang="scss">
+<script>
+import { mapState } from 'vuex';
 
-</style>
+export default {
+  computed: mapState([
+    'isUserLoggedIn',
+  ]),
+};
+</script>>

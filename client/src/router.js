@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
+import Cookie from './middlewares/Cookie';
 
 import Login from './views/Login.vue';
 
@@ -14,6 +15,17 @@ const router = new Router({
       path: '/',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      beforeEnter: (to, from, next) => {
+        Cookie.remove('token');
+        store.dispatch('setUser', null);
+        next({
+          name: 'login',
+        });
+      },
     },
     {
       path: '/admin',
