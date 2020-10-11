@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Model, DataTypes } from 'sequelize';
 import sequelize from './sequelize';
+import DepartmentModel from './Department';
 
 class UserModel extends Model {
   public id!: number;
@@ -63,5 +64,10 @@ UserModel.init(
     }
   }
 );
+
+UserModel.belongsTo(DepartmentModel, {
+  as: 'department',
+  foreignKey: 'departmentId'
+});
 
 export default UserModel;

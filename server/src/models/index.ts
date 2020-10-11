@@ -2,14 +2,17 @@ import { Sequelize } from 'sequelize';
 import sequelize from './sequelize';
 import UserModel from './User';
 import ReviewModel from './Review';
+import DepartmentModel from './Department';
 
 interface DbInterface {
+  Department: typeof DepartmentModel;
   Review: typeof ReviewModel;
   User: typeof UserModel;
   sequelize: Sequelize;
 }
 const db: DbInterface = {
   sequelize,
+  Department: DepartmentModel,
   Review: ReviewModel,
   User: UserModel
 };

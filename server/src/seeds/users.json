@@ -4,6 +4,7 @@
     "lastname": "",
     "email": "admin@mail.com",
     "password": "admin",
+    "departmentId": 1,
     "admin": true
   },
   {
@@ -11,6 +12,7 @@
     "lastname": "Doe",
     "email": "johndoe@mail.com",
     "password": "demo",
+    "departmentId": 2,
     "admin": false
   },
   {
@@ -18,6 +20,7 @@
     "lastname": "Doe",
     "email": "janedoe@mail.com",
     "password": "demo",
+    "departmentId": 1,
     "admin": false
   },
   {
@@ -25,6 +28,7 @@
     "lastname": "Stag",
     "email": "noahstag@mail.com",
     "password": "demo",
+    "departmentId": 3,
     "admin": false
   },
   {
@@ -32,6 +36,7 @@
     "lastname": "Dear",
     "email": "chloedear@mail.com",
     "password": "demo",
+    "departmentId": 4,
     "admin": false
   }
 ]
