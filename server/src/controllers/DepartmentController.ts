@@ -1,4 +1,4 @@
-import { name, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import db from '../models';
 import { formatErrorMessages } from '../utils';
 

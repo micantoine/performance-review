@@ -11,7 +11,7 @@ class EmployeeControllerPolicy {
     firstname: Joi.string().allow(''),
     lastname: Joi.string().allow(''),
     admin: Joi.boolean().optional(),
-    departmentId: Joi.number().allow(0).optional()
+    departmentId: Joi.number().allow(null).optional()
   })
 
   /**

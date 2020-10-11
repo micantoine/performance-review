@@ -28,7 +28,6 @@ const routes = (app: express.Application): void => {
     isAdmin,
     EmployeeController.index
   ]);
-
   app.post('/employee/create', [
     isAuthenticated,
     isAdmin,
@@ -38,11 +37,16 @@ const routes = (app: express.Application): void => {
 
   app.get('/reviews', [
     isAuthenticated,
-    ReviewController.index
+    ReviewController.index.bind(ReviewController)
   ]);
-  app.get('/reviews/:revieweeId', [
+  app.get('/reviews/list', [
     isAuthenticated,
-    ReviewController.view
+    isAdmin,
+    ReviewController.list.bind(ReviewController)
+  ]);
+  app.get('/reviews/employee/:revieweeId/', [
+    isAuthenticated,
+    ReviewController.view.bind(ReviewController)
   ]);
 
   app.get('/department', [

@@ -3,12 +3,14 @@ import db from '../models';
 import { formatErrorMessages } from '../utils';
 
 class ReviewController {
+  protected userAttributes = ['firstname', 'lastname', 'email', 'id'];
+
   /**
-   * List of reviews
+   * List of reviews from loggedin user
    * @param req {Request}
    * @param res {Response}
    */
-  static async index(req: Request, res: Response): Promise<void> {
+  public async index(req: Request, res: Response): Promise<void> {
     try {
       let where = {};
 
@@ -24,14 +26,21 @@ class ReviewController {
           {
             model: db.User,
             as: 'reviewee',
-            attributes: ['firstname', 'lastname', 'id']
+            attributes: this.userAttributes,
+            include: [
+              {
+                model: db.Department,
+                as: 'department',
+                attributes: ['name']
+              }
+            ]
           }
         ]
       });
-      const employeesJson = reviews.map((review) => review.toJSON());
+      const reviewsJson = reviews.map((review) => review.toJSON());
       res.send({
         success: true,
-        data: employeesJson
+        data: reviewsJson
       });
     } catch (err) {
       res.status(500).send({
@@ -44,11 +53,65 @@ class ReviewController {
   }
 
   /**
-   * List of reviews
+   * List of all reviews
    * @param req {Request}
    * @param res {Response}
    */
-  static async view(req: Request, res: Response): Promise<void> {
+  public async list(req: Request, res: Response): Promise<void> {
+    try {
+      const reviews = await db.Review.findAll({
+        attributes: {
+          exclude: ['reviewerId', 'revieweeId']
+        },
+        include: [
+          {
+            model: db.User,
+            as: 'reviewer',
+            attributes: this.userAttributes,
+            include: [
+              {
+                model: db.Department,
+                as: 'department',
+                attributes: ['name']
+              }
+            ]
+          },
+          {
+            model: db.User,
+            as: 'reviewee',
+            attributes: this.userAttributes,
+            include: [
+              {
+                model: db.Department,
+                as: 'department',
+                attributes: ['name']
+              }
+            ]
+          }
+        ]
+      });
+      const reviewsJson = reviews.map((review) => review.toJSON());
+      res.send({
+        success: true,
+        data: reviewsJson
+      });
+    } catch (err) {
+      res.status(500).send({
+        errors: 'internal error',
+        err,
+        message: [
+          ...formatErrorMessages(['An error has occured trying to fetch the employees'])
+        ]
+      });
+    }
+  }
+
+  /**
+   * List of reviews for a user
+   * @param req {Request}
+   * @param res {Response}
+   */
+  public async view(req: Request, res: Response): Promise<void> {
     try {
       const reviews = await db.Review.findAll({
         where: {
@@ -58,12 +121,26 @@ class ReviewController {
           {
             model: db.User,
             as: 'reviewee',
-            attributes: ['firstname', 'lastname']
+            attributes: this.userAttributes,
+            include: [
+              {
+                model: db.Department,
+                as: 'department',
+                attributes: ['name']
+              }
+            ]
           },
           {
             model: db.User,
             as: 'reviewer',
-            attributes: ['firstname', 'lastname', 'id']
+            attributes: this.userAttributes,
+            include: [
+              {
+                model: db.Department,
+                as: 'department',
+                attributes: ['name']
+              }
+            ]
           }
         ]
       });
@@ -82,4 +159,4 @@ class ReviewController {
   }
 }
 
-export default ReviewController;
+export default new ReviewController();
