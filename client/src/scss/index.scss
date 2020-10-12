@@ -1,0 +1,123 @@
+@import '~oo-loop/loop';
+
+$ooLoop: ooAdd('palette', (
+  'primary': #e23759,
+));
+
+@include ooInit((
+  dataAttr: true,
+));
+
+@include Base((
+  props: (
+    background-color: #f8f8f8,
+  )
+));
+
+@include Headings((
+  props: (
+    margin-bottom: 0.67em,
+  )
+));
+@include Content;
+@include List;
+
+@include Container((
+  maxWidth: 1080px,
+));
+
+@include Column((
+  gutter: (
+    sizes: (
+      'small': 1rem,
+      'tiny': .5rem,
+    ),
+    vsizes: (
+      'less': 0,
+    ),
+  )
+));
+
+@include Typography ((
+  fontSize: (
+    values: (
+      'tiny': rem(12),
+      'base': rem(16),
+    )
+  )
+));
+
+@include Color((
+  font: (
+    values: (
+      'body': oo('body.props.color'),
+      'danger': red,
+    )
+  )
+));
+
+@include Button((
+  props: (
+    padding: 0.5em 0.825em,
+    font-size: 1rem,
+    line-height: 1.4,
+  ),
+  outline: true,
+  colors: (
+    _this('palette'),
+    (
+      'secondary': #e8e8e8,
+    )
+  ),
+  variants: (
+    'tiny': (
+      padding: 0.25em 0.825em,
+      font-size: .8rem,
+    ),
+  )
+));
+
+@include Label((
+  props: (
+    font-weight: 400,
+    font-size: .8rem,
+  )
+));
+@include InputField((
+  props: (
+    padding: 0.5em 0.825em,
+    border: 1px solid #eaeaea,
+    background-color: #f8f8f8,
+  ),
+  variants: (
+    danger: (
+      background-color: #fff2f4,
+      border-color: #fdd6d6,
+    )
+  ),
+));
+
+@include SelectField((
+  props: (
+    padding: this('input.props.padding'),
+  ),
+  variants: this('input.variants'),
+));
+
+@include Checkbox((
+   sizes: (
+    large: rem(24),
+  ),
+));
+
+@include Spacing;
+@include Float;
+
+@include generateUtilities((
+  display: (
+    prefix: 'd',
+    values: (
+      'block',
+    )
+  )
+));

@@ -1,0 +1,38 @@
+[
+  {
+    "firstname": "Administrator",
+    "lastname": "",
+    "email": "admin@mail.com",
+    "password": "admin",
+    "departmentId": 1,
+    "admin": true
+  },
+  {
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "johndoe@mail.com",
+    "password": "demo",
+    "departmentId": 2
+  },
+  {
+    "firstname": "Jane",
+    "lastname": "Doe",
+    "email": "janedoe@mail.com",
+    "password": "demo",
+    "departmentId": 1
+  },
+  {
+    "firstname": "Noah",
+    "lastname": "Stag",
+    "email": "noahstag@mail.com",
+    "password": "demo",
+    "departmentId": 3
+  },
+  {
+    "firstname": "Chloe",
+    "lastname": "Dear",
+    "email": "chloedear@mail.com",
+    "password": "demo",
+    "departmentId": 4
+  }
+]
