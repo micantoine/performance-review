@@ -4,6 +4,7 @@ import store from './store';
 import Cookie from './middlewares/Cookie';
 
 import Login from './views/Login.vue';
+import Page404 from './views/Page404.vue';
 
 Vue.use(Router);
 
@@ -62,6 +63,10 @@ const router = new Router({
       name: 'reviews',
       component: () => import(/* webpackChunkName: "review" */ './views/Reviews.vue'),
       meta: { requiresAuth: true },
+    },
+    {
+      path: '*',
+      component: Page404,
     },
   ],
 });

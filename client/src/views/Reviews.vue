@@ -7,7 +7,7 @@
           <template v-slot:header>
             <h3 class="mt-0 mb-0">Pending Feedback</h3>
           </template>
-          <div v-if="pendingFeedback">
+          <div v-if="pendingReviews.length">
           </div>
           <span v-else>No required reviews</span>
         </Box>
