@@ -1,13 +1,13 @@
 <template>
   <div :class="{'font-small' : hasExcerpt}">
     <Row prop="gutter-tiny vgutter-less">
-      <Column prop="fit">
+      <Column v-if="reviewer" prop="fit">
         <img width="20" src="@/assets/bubble.svg" alt="" />
       </Column>
-      <Column class="display">
+      <Column v-if="reviewer" class="display">
         <strong class="d-block color-primary">{{ reviewer | displayName }}</strong>
       </Column>
-      <Column prop="fit self-valign-top">
+      <Column :prop="dateProp">
         <small class="d-block color-secondary">{{ review.updatedAt | formatDate }}</small>
       </Column>
     </Row>
@@ -18,6 +18,7 @@
       <strong
        v-if="showReviewee"
        class="reviewee"
+       :class="{'color-primary' : !reviewer}"
       >@{{ reviewee | displayName }}</strong>
       <span :class="{'font-italic' : hasExcerpt}">{{ review.content }}</span>
     </p>
@@ -58,6 +59,9 @@ export default {
     },
     reviewer() {
       return this.review.reviewer;
+    },
+    dateProp() {
+      return this.reviewer ? 'fit self-valign-top' : '';
     },
   },
 };
