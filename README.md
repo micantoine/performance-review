@@ -20,3 +20,14 @@ Client side is using Vuejs and LoopCss
 * Run the application `yarn run serve`
 
 for inconvenience the `.env` has been attached to the demo
+
+## Use the Demo
+To fully explore the demo, some dummy accounts have been set.
+
+### Login as an Admin
+- email **admin@mail.com**
+- password **admin**
+
+### Login as an Employee
+- email **janedoe@mail.com** or **johndoe@mail.com** or **chloedear@mail.com**
+- password **demo**
