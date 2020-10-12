@@ -18,7 +18,7 @@
             <h3 class="mt-0 mb-0">Past Reviews</h3>
           </template>
           <ul
-            v-if="reviews"
+            v-if="reviews.length"
             class="list-unstyle"
           >
             <li
@@ -31,7 +31,7 @@
               />
             </li>
           </ul>
-          <span v-else>No reviews made</span>
+          <span v-else>No reviews written</span>
         </Box>
       </Column>
     </Row>
