@@ -42,6 +42,7 @@ $ooLoop: ooAdd('palette', (
   fontSize: (
     values: (
       'tiny': rem(12),
+      'base': rem(16),
     )
   )
 ));
@@ -101,6 +102,12 @@ $ooLoop: ooAdd('palette', (
     padding: this('input.props.padding'),
   ),
   variants: this('input.variants'),
+));
+
+@include Checkbox((
+   sizes: (
+    large: rem(24),
+  ),
 ));
 
 @include Spacing;
