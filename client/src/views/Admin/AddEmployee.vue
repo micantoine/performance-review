@@ -83,12 +83,12 @@
 </template>
 
 <script>
-import EmployeeService from '../../middlewares/EmployeeService';
-import DepartmentService from '../../middlewares/DepartmentService';
-import Box from '../../components/Box.vue';
+import EmployeeService from '@/middlewares/EmployeeService';
+import DepartmentService from '@/middlewares/DepartmentService';
+import Box from '@/components/Box.vue';
 import {
   Button, Input, Column, Row
-} from '../../components/Loop';
+} from '@/components/Loop';
 
 export default {
   name: 'AddEmployee',

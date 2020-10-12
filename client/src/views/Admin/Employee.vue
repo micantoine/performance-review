@@ -1,5 +1,9 @@
 <template>
-  <h1>Employee Profile</h1>
+  <div>
+    <h1>Employee Profile</h1>
+    <p>Work in progress, Not ready for demo</p>
+    <router-link to="/admin">Back to dashboard</router-link>
+  </div>
 </template>
 
 <script>
