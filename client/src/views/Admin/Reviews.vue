@@ -25,6 +25,11 @@
           variant="primary full"
           label="Request Feedback"
           @onClick="toggleModal" />
+        <p v-if="showDemoMessage && checkedEmployees.length"
+          class="color-danger mt-10">
+          As a demo this action is not being executed.<br>
+          No invitation has been sent.
+        </p>
       </Column>
       <Column>
         <Box>
@@ -46,6 +51,7 @@
     <VTransitionFade>
       <Modal
         v-if="showModal"
+        @onConfirm="confirmRequest"
         @onClose="toggleModal">
         <ul
           v-if="employees.length"
@@ -102,6 +108,7 @@ export default {
       showModal: false,
       employees: [],
       checkedEmployees: [],
+      showDemoMessage: false,
     };
   },
   watch: {
@@ -125,6 +132,10 @@ export default {
   methods: {
     toggleModal() {
       this.showModal = !this.showModal;
+    },
+    confirmRequest() {
+      this.showModal = !this.showModal;
+      this.showDemoMessage = this.checkedEmployees.length;
     },
   },
 };

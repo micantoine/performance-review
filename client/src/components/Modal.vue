@@ -12,6 +12,7 @@
             class="mb-5"
             variant="primary full"
             label="Send Invitation"
+            @onClick="confirm"
           />
           <Button
             variant="secondary full"
@@ -47,6 +48,9 @@ export default {
     },
     cancel() {
       this.$emit('onClose', true);
+    },
+    confirm() {
+      this.$emit('onConfirm', true);
     },
   },
 };
