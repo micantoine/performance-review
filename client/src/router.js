@@ -30,7 +30,10 @@ const router = new Router({
     {
       path: '/admin',
       component: () => import(/* webpackChunkName: "admin" */ './views/Admin/Layout.vue'),
-      meta: { requiresAuth: true },
+      meta: {
+        requiresAuth: true,
+        requiresAdmin: true,
+      },
       children: [
         {
           name: 'admin',
@@ -82,7 +85,20 @@ router.beforeEach(async (to, from, next) => {
         });
       }
     }
+
+    // Restrict admin access
+    if (to.matched.some(record => record.meta.requiresAdmin)) {
+      if (!store.getters.isAdmin) {
+        next({
+          name: 'reviews',
+        });
+        store.dispatch('setFlashMessage', [
+          'You don\'t have permission',
+        ]);
+      }
+    }
   }
+
   // Is user already logged in on login page ? redirect
   if (to.name === 'login' && store.getters.isUserLoggedIn) {
     next({
