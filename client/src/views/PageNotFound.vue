@@ -1,7 +1,10 @@
 <template>
   <Box class="page text-center">
     <h1 class="mt-0">Oops</h1>
-    <p class="mb-30">The page you're looking for cannot be found. Please make sure the url is correct or click to go back.</p>
+    <p class="mb-30">
+      The page you're looking for cannot be found.
+      Please make sure the url is correct or click to go back.
+    </p>
 
     <Button v-if="isUserLoggedIn"
       variant="primary"
@@ -17,11 +20,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { Button } from '../components/Loop';
-import Box from '../components/Box.vue';
+import { Button } from '@/components/Loop';
+import { Box } from '@/components';
 
 export default {
-  name: 'Login',
+  name: 'PageNotFound',
   components: {
     Box,
     Button,

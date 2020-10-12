@@ -83,7 +83,9 @@
 <script>
 import ReviewService from '@/middlewares/ReviewService';
 import EmployeeService from '@/middlewares/EmployeeService';
-import { Box, Review, Modal, VTransitionFade } from '@/components';
+import {
+  Box, Review, Modal, VTransitionFade
+} from '@/components';
 import { Row, Column, Button } from '@/components/Loop';
 import { displayName } from '@/utils';
 

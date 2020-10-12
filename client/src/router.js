@@ -4,7 +4,7 @@ import store from './store';
 import Cookie from './middlewares/Cookie';
 
 import Login from './views/Login.vue';
-import Page404 from './views/Page404.vue';
+import PageNotFound from './views/PageNotFound.vue';
 
 Vue.use(Router);
 
@@ -66,7 +66,7 @@ const router = new Router({
     },
     {
       path: '*',
-      component: Page404,
+      component: PageNotFound,
     },
   ],
 });

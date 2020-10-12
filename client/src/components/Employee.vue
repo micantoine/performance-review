@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { displayName } from '../utils';
+import { displayName } from '@/utils';
 import { Row, Column } from './Loop';
 
 export default {

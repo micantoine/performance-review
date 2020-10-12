@@ -85,7 +85,7 @@
 <script>
 import EmployeeService from '@/middlewares/EmployeeService';
 import DepartmentService from '@/middlewares/DepartmentService';
-import Box from '@/components/Box.vue';
+import { Box } from '@/components';
 import {
   Button, Input, Column, Row
 } from '@/components/Loop';

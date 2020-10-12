@@ -26,8 +26,8 @@
 </template>
 
 <script>
+import { formatDate, displayName } from '@/utils';
 import { Row, Column } from './Loop';
-import { formatDate, displayName } from '../utils';
 
 export default {
   name: 'Review',

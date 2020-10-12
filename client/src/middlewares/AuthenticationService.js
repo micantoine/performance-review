@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
+import checkCredentials from '@/utils/checkCredentials';
 import Api from './Api';
 import Cookie from './Cookie';
-import checkCredentials from '../utils/checkCredentials';
 
 export default {
   /**

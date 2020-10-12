@@ -29,9 +29,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import AuthenticationService from '../middlewares/AuthenticationService';
-import { Button, Input } from '../components/Loop';
-import Box from '../components/Box.vue';
+import AuthenticationService from '@/middlewares/AuthenticationService';
+import { Button, Input } from '@/components/Loop';
+import { Box } from '@/components';
 
 export default {
   name: 'Login',

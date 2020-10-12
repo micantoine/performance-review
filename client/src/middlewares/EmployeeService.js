@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
+import checkCredentials from '@/utils/checkCredentials';
 import Api from './Api';
-import checkCredentials from '../utils/checkCredentials';
 
 export default {
   /**
